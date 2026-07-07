@@ -76,7 +76,7 @@ Parte **código** (cuando esté el ID real):
 
 Cosas detectadas en la revisión, no críticas, para hacer en otro PR:
 
-- [ ] `src/components/Contacto.jsx:112` — `info@estudiosz.com.ar` → `info@estudiocontablesz.com` (inconsistente con el dominio público).
+- [ x ] `src/components/Contacto.jsx:112` — `info@estudiosz.com.ar` → `info@estudiocontablesz.com` (inconsistente con el dominio público).
 - [ ] `astro.config.mjs` — agregar `site: 'https://estudiocontablesz.com'` para que `<link rel="canonical">` y `og:image` (en `src/components/Seo.astro:15`) resuelvan bien en build.
 - [ ] `src/layouts/Layout.astro:5-19` — los meta tags (`description`, `title`, `icon`) están hardcodeados en el layout. El componente `src/components/Seo.astro` existe pero no se usa. Migrar para evitar duplicación y ganar el `og:image`/Twitter cards.
 
