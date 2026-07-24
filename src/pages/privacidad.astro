@@ -1,0 +1,256 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsappButton from '../components/WhatsappButton.astro';
+import styles from './privacidad.module.css';
+
+const lastUpdated = new Date().toLocaleDateString('es-AR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+});
+---
+
+<Layout
+    seo={{
+        title: 'Política de Privacidad | Estudio Contable SZ',
+        description: 'Conocé cómo Estudio Contable SZ protege tus datos personales. Información sobre el formulario de contacto, WhatsApp, Google Fonts, Analytics y tus derechos como titular según la Ley 25.326.',
+        canonical: 'https://estudiocontablesz.com/privacidad',
+        jsonLd: {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Política de Privacidad | Estudio Contable SZ',
+            url: 'https://estudiocontablesz.com/privacidad',
+            inLanguage: 'es-AR',
+            isPartOf: {
+                '@type': 'WebSite',
+                name: 'Estudio Contable SZ',
+                url: 'https://estudiocontablesz.com',
+            },
+        },
+    }}
+>
+    <Header />
+    <main class={styles.main}>
+        <h1 class={styles.h1}>Política de Privacidad</h1>
+        <p class={styles.updated}>Última actualización: {lastUpdated}</p>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>1. Identidad del responsable</h2>
+            <p>
+                Estudio Contable SZ, en adelante "el Estudio", es responsable del tratamiento
+                de los datos personales que se recolectan a través de este sitio web.
+            </p>
+            <ul class={styles.list}>
+                <li><strong>Titular:</strong> Sergio Omar Zarate</li>
+                <li><strong>CUIT:</strong> 20-29027177-1</li>
+                <li><strong>Domicilio:</strong> Burzaco, Buenos Aires, Argentina</li>
+                <li><strong>Teléfono:</strong> 11 2858-0480</li>
+                <li>
+                    <strong>Correo electrónico:</strong>
+                    <a href="mailto:administracion@estudiocontablesz.com">administracion@estudiocontablesz.com</a>
+                </li>
+            </ul>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>2. Datos personales que recopilamos</h2>
+            <p>
+                Dependiendo de cómo interactúes con este sitio, podemos recolectar las siguientes
+                categorías de datos:
+            </p>
+
+            <h3 class={styles.h3}>a) Formulario de contacto</h3>
+            <p>
+                Cuando completás el formulario de la sección "Contacto", nos enviás: tu nombre,
+                tu dirección de correo electrónico y el mensaje que escribas. Estos datos se
+                transmiten al Estudio a través del servicio EmailJS, un proveedor externo con
+                servidores fuera de la Argentina.
+            </p>
+
+            <h3 class={styles.h3}>b) Botón de WhatsApp</h3>
+            <p>
+                El botón flotante de WhatsApp abre la aplicación de WhatsApp con un mensaje
+                predefinido. Al hacer clic, salís de nuestro sitio y la información queda
+                registrada por WhatsApp (Meta Platforms, Inc.) bajo sus propios términos y
+                política de privacidad.
+            </p>
+
+            <h3 class={styles.h3}>c) Fuentes de Google (Google Fonts)</h3>
+            <p>
+                Este sitio carga tipografías desde los servidores de Google
+                (<code class={styles.code}>fonts.googleapis.com</code> y <code class={styles.code}>fonts.gstatic.com</code>). Al hacerlo,
+                tu dirección IP y datos técnicos del navegador son transmitidos a Google LLC. No
+                tenemos control sobre qué información adicional recolecta Google con este fin.
+            </p>
+
+            <h3 class={styles.h3}>d) Google Analytics 4 (en proceso de integración)</h3>
+            <p>
+                El Estudio está en proceso de integración de Google Analytics 4, una herramienta
+                de Google LLC que, una vez activa, recolectará información agregada y seudonimizada
+                sobre las visitas al sitio (páginas visitadas, tiempo de permanencia, país de
+                origen, tipo de dispositivo, navegador).
+            </p>
+            <p>
+                Mientras la integración no esté efectivamente activa, no se ejecuta ningún
+                script de Analytics. Cuando se active, vas a poder optar por no participar mediante:
+            </p>
+            <ul class={styles.list}>
+                <li>
+                    La instalación de la extensión oficial
+                    <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener noreferrer" target="_blank">
+                        Google Analytics Opt-out
+                    </a>.
+                </li>
+                <li>La configuración de "No rastrear" (Do Not Track) de tu navegador.</li>
+                <li>El uso de bloqueadores de scripts y cookies.</li>
+            </ul>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>3. Finalidad del tratamiento</h2>
+            <p>Los datos recolectados se utilizan con las siguientes finalidades:</p>
+            <ul class={styles.list}>
+                <li>Responder a las consultas y solicitudes de presupuesto que envíes por el formulario o por WhatsApp.</li>
+                <li>Brindar los servicios contables, impositivos y laborales que eventualmente contrates.</li>
+                <li>Cumplir con las obligaciones legales, fiscales y previsionales a cargo del Estudio.</li>
+                <li>Analizar el uso del sitio para mejorar su contenido y experiencia (cuando GA4 esté activo).</li>
+            </ul>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>4. Base legal</h2>
+            <p>El tratamiento de tus datos se basa en:</p>
+            <ul class={styles.list}>
+                <li>Tu consentimiento libre, expreso e informado, al completar el formulario de contacto, al usar el botón de WhatsApp o al navegar este sitio.</li>
+                <li>La ejecución de un contrato de servicios profesionales, en caso de que contrates nuestros servicios.</li>
+                <li>El cumplimiento de obligaciones legales a cargo del Estudio.</li>
+            </ul>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>5. Transferencias internacionales y terceros</h2>
+            <p>
+                Para operar este sitio, compartimos tus datos con los siguientes terceros, algunos
+                de los cuales pueden implicar transferencias internacionales de datos:
+            </p>
+            <ul class={styles.list}>
+                <li>
+                    <strong>EmailJS</strong> (envío de formularios).
+                    <a href="https://www.emailjs.com/legal/privacy-policy/" rel="noopener noreferrer" target="_blank">
+                        Política de privacidad
+                    </a>.
+                </li>
+                <li>
+                    <strong>Google LLC</strong> (Google Fonts y, en proceso, Google Analytics).
+                    <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">
+                        Política
+                    </a>.
+                </li>
+                <li>
+                    <strong>WhatsApp / Meta Platforms, Inc.</strong> (botón de contacto).
+                    <a href="https://www.whatsapp.com/legal/privacy-policy" rel="noopener noreferrer" target="_blank">
+                        Política
+                    </a>.
+                </li>
+            </ul>
+            <p>
+                El Estudio procura trabajar únicamente con proveedores que ofrezcan niveles de
+                protección adecuados conforme la Ley 25.326 de Protección de Datos Personales.
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>6. Plazo de conservación</h2>
+            <ul class={styles.list}>
+                <li>
+                    Las consultas recibidas por el formulario o WhatsApp se conservan hasta
+                    responderlas y por un plazo adicional de 6 (seis) meses, salvo que inicies
+                    una relación contractual con el Estudio.
+                </li>
+                <li>
+                    La documentación contable, fiscal y laboral de los servicios contratados se
+                    conserva conforme los plazos legales aplicables (en general, entre 5 y 10
+                    años según la normativa de AFIP/ARCA y de los Consejos Profesionales).
+                </li>
+                <li>
+                    Los datos de Google Analytics (cuando esté activo) se conservan conforme la
+                    configuración por defecto de Google (14 meses).
+                </li>
+            </ul>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>7. Derechos del titular</h2>
+            <p>
+                Conforme el artículo 14 y concordantes de la Ley 25.326 de Protección de los
+                Datos Personales, tenés derecho a:
+            </p>
+            <ul class={styles.list}>
+                <li><strong>Acceso:</strong> conocer qué datos tuyos tenemos.</li>
+                <li><strong>Rectificación:</strong> corregir datos inexactos o incompletos.</li>
+                <li><strong>Actualización:</strong> refrescar datos desactualizados.</li>
+                <li><strong>Supresión:</strong> solicitar la eliminación de tus datos cuando ya no sean necesarios.</li>
+                <li><strong>Oposición:</strong> oponerte al tratamiento de tus datos por motivos fundados.</li>
+            </ul>
+            <p>
+                Para ejercer cualquiera de estos derechos, envianos una nota a
+                <a href="mailto:administracion@estudiocontablesz.com?subject=Ejercicio%20de%20derechos%20ARCO">
+                    administracion@estudiocontablesz.com
+                </a>
+                detallando tu petición y acompañando copia de tu DNI. Responderemos en un plazo
+                máximo de 10 (diez) días hábiles.
+            </p>
+            <p>
+                Si considerás que tu solicitud no fue atendida debidamente, podés interponer una
+                denuncia ante la Agencia de Acceso a la Información Pública (AAIP), autoridad
+                de aplicación de la Ley 25.326 en la República Argentina
+                (<a href="https://www.argentina.gob.ar/aaip" rel="noopener noreferrer" target="_blank">
+                    https://www.argentina.gob.ar/aaip
+                </a>).
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>8. Cookies</h2>
+            <p>
+                Este sitio no utiliza cookies propias. Sólo se podrán cargar cookies de
+                terceros una vez que se active Google Analytics 4. En ese caso, vas a poder
+                rechazarlas desde la configuración de tu navegador o mediante las herramientas
+                de opt-out mencionadas en el punto 2.d.
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>9. Seguridad de la información</h2>
+            <p>
+                El sitio se sirve sobre HTTPS con HSTS habilitado y aplica encabezados de
+                seguridad estándar (CSP, X-Frame-Options, Referrer-Policy, entre otros). No
+                almacenamos datos personales en el sitio: los mensajes del formulario se
+                transmiten directamente a nuestro correo a través de EmailJS y no quedan
+                registrados en el servidor del sitio.
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>10. Cambios a esta política</h2>
+            <p>
+                El Estudio puede modificar esta política para reflejar cambios en el sitio o en
+                la normativa aplicable. La fecha de la última actualización figura al inicio de
+                este documento. Te recomendamos revisarla periódicamente.
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>11. Contacto</h2>
+            <p>
+                Por cualquier consulta sobre esta política o sobre el tratamiento de tus datos
+                personales, podés escribirnos a
+                <a href="mailto:administracion@estudiocontablesz.com">administracion@estudiocontablesz.com</a>.
+            </p>
+        </section>
+    </main>
+    <Footer />
+    <WhatsappButton />
+</Layout>

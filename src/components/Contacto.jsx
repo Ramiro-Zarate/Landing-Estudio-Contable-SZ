@@ -90,7 +90,7 @@ export function Contacto() {
                         </svg>
                         <div>
                             <span className={styles.contactLabel}>Dirección</span>
-                            <p className={styles.contactValue}>Av. Example 1234, Ciudad</p>
+                            <p className={styles.contactValue}>Burzaco, Buenos Aires</p>
                         </div>
                     </div>
                     <div className={styles.contactItem}>
@@ -109,7 +109,7 @@ export function Contacto() {
                         </svg>
                         <div>
                             <span className={styles.contactLabel}>Email</span>
-                            <p className={styles.contactValue}>info@estudiosz.com.ar</p>
+                            <p className={styles.contactValue}>administracion@estudiocontablesz.com</p>
                         </div>
                     </div>
                 </div>

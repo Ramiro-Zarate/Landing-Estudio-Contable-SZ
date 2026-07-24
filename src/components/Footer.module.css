@@ -1,12 +1,34 @@
 .footer {
-    padding: 2rem 1.5rem;
+    padding: 48px 1.5rem;
     text-align: center;
     border-top: 1px solid rgba(0, 0, 0, 0.06);
     background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
 }
 
-.copy {
+.copy,
+.dataFiscal {
     font-size: 0.875rem;
     color: #5a5a6e;
     margin: 0;
+}
+
+.legal {
+    display: flex;
+    gap: 1rem;
+}
+
+.legal a {
+    color: #5a5a6e;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+}
+
+.legal a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
 }

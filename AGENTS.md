@@ -71,14 +71,57 @@ Parte **código** (cuando esté el ID real):
 - [ ] Agregar `PUBLIC_GA_MEASUREMENT_ID=` a `.env.example`.
 
 > **Pendiente**: hacerlo después de tener el Measurement ID real.
+>
+> **Nota**: la política de privacidad en `/privacidad` ya cubre la mención de Google Analytics 4 como "en proceso de integración" (sección 2.d). Cuando se active el script real, **no** hace falta tocar la política: alcanza con actualizar la fecha de "Última actualización" y la sección de cookies.
 
 ## Fixes menores pendientes
 
 Cosas detectadas en la revisión, no críticas, para hacer en otro PR:
 
-- [ x ] `src/components/Contacto.jsx:112` — `info@estudiosz.com.ar` → `info@estudiocontablesz.com` (inconsistente con el dominio público).
-- [ ] `astro.config.mjs` — agregar `site: 'https://estudiocontablesz.com'` para que `<link rel="canonical">` y `og:image` (en `src/components/Seo.astro:15`) resuelvan bien en build.
-- [ ] `src/layouts/Layout.astro:5-19` — los meta tags (`description`, `title`, `icon`) están hardcodeados en el layout. El componente `src/components/Seo.astro` existe pero no se usa. Migrar para evitar duplicación y ganar el `og:image`/Twitter cards.
+- [ x ] `src/components/Contacto.jsx:112` — `info@estudiosz.com.ar` → `info@estudiocontablesz.com` (inconsistente con el dominio público). **(Hecho)**
+- [ x ] `astro.config.mjs` — agregar `site: 'https://estudiocontablesz.com'` para que `<link rel="canonical">` y `og:image` (en `src/components/Seo.astro:15`) resuelvan bien en build. **(Hecho)**
+- [ x ] `src/layouts/Layout.astro:5-19` — los meta tags (`description`, `title`, `icon`) están hardcodeados en el layout. El componente `src/components/Seo.astro` existe pero no se usa. Migrar para evitar duplicación y ganar el `og:image`/Twitter cards. **(Parcial: el Layout ahora acepta prop `seo?` opcional y la página `/privacidad` lo usa. La home sigue pasando por el default del Layout para no tocarla en este PR.)**
+
+## Cambios recientes (PR actual)
+
+> **Resumen del PR de política de privacidad y footer fiscal.**
+
+### Política de privacidad (`/privacidad`)
+
+Nueva página estática en `src/pages/privacidad.astro` + `src/pages/privacidad.module.css`.
+
+- Redacción en `es_AR`, alineada con la **Ley 25.326 de Protección de Datos Personales** y la **AAIP**.
+- 11 secciones: identidad del responsable, datos que recopilamos (formulario, WhatsApp, Google Fonts, **GA4 en proceso de integración**), finalidad, base legal, transferencias internacionales, plazos de conservación, derechos ARCO, cookies, seguridad, cambios y contacto.
+- Datos del responsable: **Sergio Omar Zarate · CUIT 20-29027177-1 · Burzaco, Buenos Aires · 11 2858-0480 · `administracion@estudiocontablesz.com`**.
+- Canal único para derechos del titular y contacto: `administracion@estudiocontablesz.com` (mailto con subject prellenado).
+- **Meta tags propios** vía `Seo.astro`: `title`, `description`, `canonical` (`https://estudiocontablesz.com/privacidad`), `og:image`, Twitter cards, JSON-LD tipo `WebPage`.
+- Fecha "Última actualización" dinámica con `toLocaleDateString('es-AR')`.
+
+### Footer (`src/components/Footer.astro`)
+
+Antes: solo `&copy; {year}`.
+Ahora: tres elementos centrados, con `padding: 48px 1.5rem` (punto medio del rango 40–60px que definiste) y `gap: 12px`:
+
+1. Copyright dinámico.
+2. `<nav aria-label="Enlaces legales">` con link a `/privacidad`.
+3. Data fiscal en texto: `Sergio Omar Zarate · CUIT 20-29027177-1`.
+4. **QR fiscal de AFIP** (`http://qr.afip.gob.ar/?qr=...`) con la imagen F.960 estándar. El `border="0"` original del HTML se reemplazó por `.fiscalQr img { border: 0; }` en `Footer.module.css` (HTML5 deprecaba el atributo). Se agregaron `alt`, `rel="noopener noreferrer"`, `width`/`height`, `loading="lazy"` y `decoding="async"`.
+
+### Otros cambios del PR
+
+- `src/components/Contacto.jsx` — email actualizado a `administracion@estudiocontablesz.com` y dirección a `Burzaco, Buenos Aires`. (El teléfono sigue como placeholder `+54 11 1234-5678` — fuera de scope de este PR.)
+- `src/layouts/Layout.astro` — refactor mínimo: acepta prop `seo?` opcional. Si no se pasa, conserva los meta tags originales de la home (no rompe nada). Si se pasa, monta `<Seo {...seo} />`.
+- `astro.config.mjs` — `site: 'https://estudiocontablesz.com'` agregado.
+
+### Buzones — discrepancia a resolver
+
+`AGENTS.md` (sección Google Workspace) lista como buzones planificados:
+- `info@estudiocontablesz.com` — general / pública.
+- `contacto@estudiocontablesz.com` — formulario web.
+
+La política de privacidad y el footer usan **`administracion@estudiocontablesz.com`** como canal único (info + derechos ARCO + contacto). Decidir si:
+- a) Crear también `administracion@` cuando se configuren los buzones, o
+- b) Reemplazar `administracion@` por `info@` en la política/footer.
 
 ## Conventions
 
