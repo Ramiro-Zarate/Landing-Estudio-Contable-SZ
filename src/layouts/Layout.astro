@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import WhatsappButton from '../components/WhatsappButton.astro';
 import Seo from '../components/Seo.astro';
+import Analytics from '../components/Analytics.astro';
 
 const { seo } = Astro.props;
 
@@ -16,6 +17,7 @@ const finalSeo = { ...defaultSeo, ...(seo ?? {}) };
 <html lang="es">
 	<head>
 		<Seo {...finalSeo} />
+		<Analytics />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">

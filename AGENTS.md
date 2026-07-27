@@ -27,6 +27,44 @@ Variables de entorno actuales (ver `.env.example`):
 
 > **No commitear `.env`** — ya está en `.gitignore`. En Vercel se configuran en Project → Settings → Environment Variables.
 
+## ⚠️ Pendientes prioritarios
+
+### QR fiscal del footer — **ALTA PRIORIDAD**
+
+El `<a>` del QR en `src/components/Footer.astro:15-25` **no funciona correctamente** en su estado actual:
+
+- **Imagen rota**: `<img src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg">` es el **placeholder genérico de AFIP**, no un QR real con los datos del estudio. Visualmente parece un QR pero no codifica nada escaneable.
+- **URL de sistema equivocado**: `<a href="https://qr.afip.gob.ar/?qr=zUPDabSOKnhNpakZyh6UeQ,,,,">` apunta al verificador de **comprobantes electrónicos** (facturas con CAE/CAEA/CAI), no al sistema de la **Constancia de Inscripción** (F.960). El token `zUPDabSOKnhNpakZyh6UeQ,,,,"` parece un CSV de factura, no un identificador de constancia.
+- **Target name mezclado**: `target="_F960AFIPInfo"` (target de la constancia) refuerza que el `href` está mal: hay un mix de dos sistemas distintos de AFIP.
+- **Al clickear o escanear, da error** porque el token no corresponde a ningún registro válido en el sistema del F.960.
+- La CSP de `vercel.json:28` ya permite `https://www.afip.gob.ar` (fix aplicado), pero eso **no resuelve el problema raíz** — el problema es que la imagen y el href no son del sistema correcto.
+
+**Para arreglarlo**:
+
+1. **Manual (vos)**: entrar a AFIP con CUIT 20-29027177-1 y clave fiscal → "Constancia de Inscripción" (F.960) → ver la constancia → copiar la URL que aparece asociada al QR oficial. Si AFIP te da una imagen del QR para descargar, guardarla como `public/qr-fiscal.png` (o `.jpg`).
+2. **Si tenés URL pero no imagen**: regenero `public/qr-fiscal.png` con `scripts/generate-fiscal-qr.mjs` (lo borré en un revert anterior; lo vuelvo a crear) usando el paquete `qrcode` que ya está en `node_modules`.
+3. **Si tenés imagen**: la guardás en `public/qr-fiscal.png` y yo actualizo el `src` y el `href` del `<a>`.
+4. **Yo**: actualizo `src/components/Footer.astro` con los datos correctos y rebuild.
+
+**Workaround mientras tanto**: el footer ya muestra `Sergio Omar Zarate · CUIT 20-29027177-1` en texto. Si querés sacar el QR roto y dejar sólo el texto hasta tener los datos correctos, decime y lo hago en un cambio mínimo.
+
+**Por qué es ALTA prioridad**: vos indicás que el QR fiscal es requisito para sitios web de servicios. Si lo dejamos como está, queda como un link muerto en producción y un QR que no escanea.
+
+### Google Analytics 4 — **ALTA PRIORIDAD**
+
+Bloqueado en tener el **Measurement ID** (`G-XXXXXXXXXX`) de `analytics.google.com`. Tareas detalladas en la sección "Google Analytics 4 — setup" más abajo. Resumen:
+
+- [ ] **Manual (vos)**: crear propiedad GA4 en `analytics.google.com` apuntando a `https://estudiocontablesz.com` y copiar el Measurement ID.
+- [ ] **Setear env var**: `PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX` en Vercel (Production) y en `.env` local.
+- [ ] **Código (yo, cuando esté el ID)**:
+  - Crear `src/components/Analytics.astro` con snippet `gtag.js` condicional.
+  - Montar `<Analytics />` en el `<head>` de `src/layouts/Layout.astro`.
+  - Actualizar CSP en `vercel.json:28`: `script-src` sumar `https://www.googletagmanager.com`, `connect-src` sumar `https://www.google-analytics.com` y `https://region1.google-analytics.com`, `img-src` sumar `https://www.google-analytics.com`.
+  - Agregar `PUBLIC_GA_MEASUREMENT_ID=` a `.env.example`.
+- [ ] **No hay que tocar la política de privacidad**: la sección 2.d de `/privacidad` ya menciona GA4 como "en proceso de integración" y la sección 8 (Cookies) ya cubre el opt-out. Sólo actualizar la fecha de "Última actualización" cuando se active.
+
+**Por qué es ALTA prioridad**: la política de privacidad ya publicita que GA4 está "en proceso" — si queda mucho tiempo en ese estado sin avanzar, queda como un descuido evidente para un visitante técnico (y para la AAIP si te auditan).
+
 ## Dominio
 
 Dominio público del estudio: **`estudiocontablesz.com`**.
