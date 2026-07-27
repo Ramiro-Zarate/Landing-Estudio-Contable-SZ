@@ -10,6 +10,11 @@ const lastUpdated = new Date().toLocaleDateString('es-AR', {
     month: 'long',
     day: 'numeric',
 });
+
+const activeSince = new Date().toLocaleDateString('es-AR', {
+    year: 'numeric',
+    month: 'long',
+});
 ---
 
 <Layout
@@ -85,17 +90,14 @@ const lastUpdated = new Date().toLocaleDateString('es-AR', {
                 tenemos control sobre qué información adicional recolecta Google con este fin.
             </p>
 
-            <h3 class={styles.h3}>d) Google Analytics 4 (en proceso de integración)</h3>
+            <h3 class={styles.h3}>d) Google Analytics 4</h3>
             <p>
-                El Estudio está en proceso de integración de Google Analytics 4, una herramienta
-                de Google LLC que, una vez activa, recolectará información agregada y seudonimizada
-                sobre las visitas al sitio (páginas visitadas, tiempo de permanencia, país de
-                origen, tipo de dispositivo, navegador).
+                Este sitio utiliza Google Analytics 4, una herramienta de Google LLC que
+                recolecta información agregada y seudonimizada sobre las visitas al sitio
+                (páginas visitadas, tiempo de permanencia, país de origen, tipo de dispositivo,
+                navegador). El servicio se encuentra activo desde {activeSince}.
             </p>
-            <p>
-                Mientras la integración no esté efectivamente activa, no se ejecuta ningún
-                script de Analytics. Cuando se active, vas a poder optar por no participar mediante:
-            </p>
+            <p>Vas a poder optar por no participar mediante:</p>
             <ul class={styles.list}>
                 <li>
                     La instalación de la extensión oficial
@@ -115,7 +117,7 @@ const lastUpdated = new Date().toLocaleDateString('es-AR', {
                 <li>Responder a las consultas y solicitudes de presupuesto que envíes por el formulario o por WhatsApp.</li>
                 <li>Brindar los servicios contables, impositivos y laborales que eventualmente contrates.</li>
                 <li>Cumplir con las obligaciones legales, fiscales y previsionales a cargo del Estudio.</li>
-                <li>Analizar el uso del sitio para mejorar su contenido y experiencia (cuando GA4 esté activo).</li>
+                <li>Analizar el uso del sitio a través de Google Analytics 4 para mejorar su contenido y experiencia.</li>
             </ul>
         </section>
 
@@ -143,7 +145,7 @@ const lastUpdated = new Date().toLocaleDateString('es-AR', {
                     </a>.
                 </li>
                 <li>
-                    <strong>Google LLC</strong> (Google Fonts y, en proceso, Google Analytics).
+                    <strong>Google LLC</strong> (Google Fonts y Google Analytics 4).
                     <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">
                         Política
                     </a>.
@@ -175,8 +177,8 @@ const lastUpdated = new Date().toLocaleDateString('es-AR', {
                     años según la normativa de AFIP/ARCA y de los Consejos Profesionales).
                 </li>
                 <li>
-                    Los datos de Google Analytics (cuando esté activo) se conservan conforme la
-                    configuración por defecto de Google (14 meses).
+                    Los datos de Google Analytics 4 se conservan conforme la configuración por
+                    defecto de Google (14 meses).
                 </li>
             </ul>
         </section>
@@ -215,10 +217,10 @@ const lastUpdated = new Date().toLocaleDateString('es-AR', {
         <section class={styles.section}>
             <h2 class={styles.h2}>8. Cookies</h2>
             <p>
-                Este sitio no utiliza cookies propias. Sólo se podrán cargar cookies de
-                terceros una vez que se active Google Analytics 4. En ese caso, vas a poder
-                rechazarlas desde la configuración de tu navegador o mediante las herramientas
-                de opt-out mencionadas en el punto 2.d.
+                Este sitio no utiliza cookies propias. Google Analytics 4 puede instalar
+                cookies de terceros para medir el uso del sitio. Podés rechazarlas desde la
+                configuración de tu navegador o mediante las herramientas de opt-out
+                mencionadas en el punto 2.d.
             </p>
         </section>
 
