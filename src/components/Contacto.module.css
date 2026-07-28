@@ -146,17 +146,28 @@
     }
 
     .contactInfo {
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 1rem;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-inline: 0;
     }
 
     .contactItem {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        flex: 1;
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        flex: none;
     }
+}
+
+.contactoForm,
+.contactInfo {
+    min-width: 0;
+}
+
+.input,
+.textarea {
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .alerta {

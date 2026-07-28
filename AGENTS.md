@@ -50,20 +50,19 @@ El `<a>` del QR en `src/components/Footer.astro:15-25` **no funciona correctamen
 
 **Por qué es ALTA prioridad**: vos indicás que el QR fiscal es requisito para sitios web de servicios. Si lo dejamos como está, queda como un link muerto en producción y un QR que no escanea.
 
-### Google Analytics 4 — **ALTA PRIORIDAD**
+### Google Analytics 4 — **HECHO** (2026-07-27)
 
-Bloqueado en tener el **Measurement ID** (`G-XXXXXXXXXX`) de `analytics.google.com`. Tareas detalladas en la sección "Google Analytics 4 — setup" más abajo. Resumen:
+Implementado y deployado en producción. Measurement ID: `G-WPHS1P9JP5`.
 
-- [ ] **Manual (vos)**: crear propiedad GA4 en `analytics.google.com` apuntando a `https://estudiocontablesz.com` y copiar el Measurement ID.
-- [ ] **Setear env var**: `PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX` en Vercel (Production) y en `.env` local.
-- [ ] **Código (yo, cuando esté el ID)**:
-  - Crear `src/components/Analytics.astro` con snippet `gtag.js` condicional.
-  - Montar `<Analytics />` en el `<head>` de `src/layouts/Layout.astro`.
-  - Actualizar CSP en `vercel.json:28`: `script-src` sumar `https://www.googletagmanager.com`, `connect-src` sumar `https://www.google-analytics.com` y `https://region1.google-analytics.com`, `img-src` sumar `https://www.google-analytics.com`.
-  - Agregar `PUBLIC_GA_MEASUREMENT_ID=` a `.env.example`.
-- [ ] **No hay que tocar la política de privacidad**: la sección 2.d de `/privacidad` ya menciona GA4 como "en proceso de integración" y la sección 8 (Cookies) ya cubre el opt-out. Sólo actualizar la fecha de "Última actualización" cuando se active.
+- `src/components/Analytics.astro` — nuevo componente con snippet gtag.js, `is:inline` + `define:vars`, carga condicional a `PUBLIC_GA_MEASUREMENT_ID` (no rompe preview).
+- `src/layouts/Layout.astro` — importa y monta `<Analytics />` en `<head>` después de `<Seo />`.
+- `vercel.json` (línea 28) — CSP ampliada: `script-src` + `frame-src` suman `https://www.googletagmanager.com`, `connect-src` suma `https://www.google-analytics.com` y `https://region1.google-analytics.com`, `img-src` suma `https://www.google-analytics.com`.
+- `.env.example` — agregado `PUBLIC_GA_MEASUREMENT_ID=`.
+- `src/pages/privacidad.astro` — sección 2.d pasada de "en proceso de integración" a estado activo con "activo desde {mes de deploy}" (fecha dinámica calculada con `toLocaleDateString('es-AR')`). Actualizadas también secciones 3, 5, 6 y 8 para reflejar que GA4 ya no es condicional.
 
-**Por qué es ALTA prioridad**: la política de privacidad ya publicita que GA4 está "en proceso" — si queda mucho tiempo en ese estado sin avanzar, queda como un descuido evidente para un visitante técnico (y para la AAIP si te auditan).
+Env var seteada en Vercel (Production): `PUBLIC_GA_MEASUREMENT_ID=G-WPHS1P9JP5`.
+
+> **Pendiente menor**: el container `GTM-NHVF892R` quedó huérfano. Se puede borrar desde tagmanager.google.com. No urge, no afecta nada en producción.
 
 ## Dominio
 
@@ -90,6 +89,8 @@ Pasos a ejecutar manualmente desde `workspace.google.com` con una cuenta Google 
 
 ## Google Analytics 4 — setup
 
+> **HECHO 2026-07-27**. Measurement ID real: `G-WPHS1P9JP5`. Ver bloque detallado en "Cambios recientes".
+
 Parte **manual** (vos):
 
 1. Crear propiedad GA4 en `analytics.google.com` apuntando a `https://estudiocontablesz.com`.
@@ -100,17 +101,15 @@ Parte **manual** (vos):
 
 Parte **código** (cuando esté el ID real):
 
-- [ ] Crear `src/components/Analytics.astro` con snippet `gtag.js` condicional (no carga si no hay env var, para no romper preview).
-- [ ] Importar y montar `<Analytics />` dentro del `<head>` en `src/layouts/Layout.astro`.
-- [ ] Actualizar CSP en `vercel.json` (línea 28):
+- [x] Crear `src/components/Analytics.astro` con snippet `gtag.js` condicional (no carga si no hay env var, para no romper preview).
+- [x] Importar y montar `<Analytics />` dentro del `<head>` en `src/layouts/Layout.astro`.
+- [x] Actualizar CSP en `vercel.json` (línea 28):
   - `script-src`: sumar `https://www.googletagmanager.com`.
   - `connect-src`: sumar `https://www.google-analytics.com` y `https://region1.google-analytics.com`.
   - `img-src`: sumar `https://www.google-analytics.com`.
-- [ ] Agregar `PUBLIC_GA_MEASUREMENT_ID=` a `.env.example`.
+- [x] Agregar `PUBLIC_GA_MEASUREMENT_ID=` a `.env.example`.
 
-> **Pendiente**: hacerlo después de tener el Measurement ID real.
->
-> **Nota**: la política de privacidad en `/privacidad` ya cubre la mención de Google Analytics 4 como "en proceso de integración" (sección 2.d). Cuando se active el script real, **no** hace falta tocar la política: alcanza con actualizar la fecha de "Última actualización" y la sección de cookies.
+> **Nota (obsoleta, reemplazada el 2026-07-27)**: la versión original de esta sección decía que "no hace falta tocar la política" cuando se activara el script. Eso fue cierto al momento de redactarla, pero la política **sí se tocó** en la misma sesión de activación para reflejar el estado activo. Ver bloque "PR de Google Analytics 4" en "Cambios recientes".
 
 ## Fixes menores pendientes
 
@@ -160,6 +159,43 @@ Ahora: tres elementos centrados, con `padding: 48px 1.5rem` (punto medio del ran
 La política de privacidad y el footer usan **`administracion@estudiocontablesz.com`** como canal único (info + derechos ARCO + contacto). Decidir si:
 - a) Crear también `administracion@` cuando se configuren los buzones, o
 - b) Reemplazar `administracion@` por `info@` en la política/footer.
+
+### PR de Google Analytics 4 (2026-07-27)
+
+> Activación de GA4 con gtag.js. Measurement ID: `G-WPHS1P9JP5`. Deployado en producción y verificado en Tiempo real.
+
+**Componentes nuevos**
+
+- `src/components/Analytics.astro` — nuevo. Snippet gtag.js oficial con dos directivas clave: `is:inline` (evita que Astro lo bundlee como módulo y lo difiera, lo que rompería el tracking) y `define:vars` (inyecta la env var al build sin que el script pase por el bundler). Carga condicional: si `PUBLIC_GA_MEASUREMENT_ID` no está seteada, el componente no renderiza nada y el sitio sigue funcionando (clave para previews de Vercel).
+
+**Archivos modificados**
+
+- `src/layouts/Layout.astro` — importa `<Analytics />` y lo monta en `<head>` inmediatamente después de `<Seo />` (lo más alto posible en head para mejor tracking del pageview inicial).
+- `vercel.json` (línea 28, CSP) — agregados los orígenes de Google:
+  - `script-src` + `frame-src`: `https://www.googletagmanager.com`
+  - `connect-src`: `https://www.google-analytics.com` y `https://region1.google-analytics.com`
+  - `img-src`: `https://www.google-analytics.com` (pixel de fallback)
+- `.env.example` — agregada línea `PUBLIC_GA_MEASUREMENT_ID=your_ga4_measurement_id`.
+- `src/pages/privacidad.astro` — política pasada de "en proceso" a activa:
+  - **2.d** título y párrafos reescritos. Removido "(en proceso de integración)". Agregado "activo desde {mes de deploy}" con fecha dinámica (`toLocaleDateString('es-AR', {year, month})`).
+  - **3** bullet 4: condicional "(cuando GA4 esté activo)" → "a través de Google Analytics 4".
+  - **5** bullet Google LLC: "(Google Fonts y, en proceso, Google Analytics)" → "(Google Fonts y Google Analytics 4)".
+  - **6** bullet 3: "(cuando esté activo)" quitado.
+  - **8** Cookies: reescrita en voz activa (ya no dice "una vez que se active").
+
+**Setup manual (vos)**
+
+- Creada propiedad GA4 en `analytics.google.com` apuntando a `https://estudiocontablesz.com`.
+- Seteada env var `PUBLIC_GA_MEASUREMENT_ID=G-WPHS1P9JP5` en Vercel (Production).
+- Local NO se setea para no contaminar las métricas con tráfico de desarrollo (verificado que el build funciona y el sitio renderiza idéntico sin la env var).
+
+**Limpieza**
+
+- Removido snippet de Google Tag Manager (`GTM-NHVF892R`) que estaba mal pegado en `Layout.astro`. El container queda huérfano — se puede borrar desde tagmanager.google.com cuando se recuerde (no urge).
+
+**Decisión descartada: GTM vs gtag.js**
+
+- Originalmente se pegó el snippet de GTM por confusión (el panel de GA4 ofrece ambos). Se descartó GTM porque para un sitio estático de un estudio contable, la flexibilidad de GTM (gestionar múltiples tags sin tocar código) no aporta valor, y la política de privacidad ya estaba redactada alrededor de "Google Analytics 4" (no "Tag Manager"). gtag.js directo es la opción más simple para el caso de uso.
 
 ## Conventions
 
