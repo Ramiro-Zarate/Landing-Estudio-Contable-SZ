@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import { Servicios } from '../components/Servicios.jsx';
+import { Consultoria } from '../components/Consultoria.jsx';
 import About from '../components/About.astro';
 import { Contacto } from '../components/Contacto.jsx';
 import Footer from '../components/Footer.astro';
@@ -15,6 +16,7 @@ import Footer from '../components/Footer.astro';
 	<main>
 		<About />
 		<Servicios client:visible />
+		<Consultoria client:visible />
 		<Contacto client:load/>
 	</main>
 	<Footer />

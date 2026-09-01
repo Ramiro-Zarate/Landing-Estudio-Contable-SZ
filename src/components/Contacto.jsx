@@ -32,6 +32,7 @@ export function Contacto() {
     };
     return (
         <section className={styles.contacto} id="contacto">
+            <div className={styles.contactoInner}>
             <h2 className={styles.contactoTitle}>Contacto</h2>
             <p className={styles.contactoSubtitle}>
                 ¿Tenés alguna consulta? Escribinos y te responderemos a la brevedad.
@@ -113,6 +114,7 @@ export function Contacto() {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
     )

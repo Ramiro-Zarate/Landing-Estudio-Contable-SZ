@@ -36,6 +36,21 @@
     max-width: 480px;
 }
 
+.consultoriaSection {
+    background-color: var(--bg-color);
+}
+
+.svSubConsultoria {
+    line-height: 1.75;
+    max-width: 640px;
+    margin: 0 auto 1.25rem;
+}
+
+.svSubConsultoriaLast {
+    margin: 0 auto 2.5rem;
+    max-width: 640px;
+}
+
 .svGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
