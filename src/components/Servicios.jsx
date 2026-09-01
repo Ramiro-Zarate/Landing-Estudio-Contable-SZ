@@ -109,13 +109,15 @@ function flipTransform(originRect, modalRect) {
   };
 }
 
-function ServicioCard({ servicio, onClick }) {
+function ServicioCard({ servicio, onClick, onHoverStart, onHoverEnd }) {
   return (
     <article className={styles.svCard}>
       <button
         type="button"
         className={styles.svTrigger}
         onClick={onClick}
+        onMouseEnter={onHoverStart}
+        onMouseLeave={onHoverEnd}
         aria-label={`${servicio.titulo} - ${servicio.descripcion}`}
       >
         <div className={styles.svIconWrap}>
@@ -280,14 +282,37 @@ export function Servicios() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [originRect, setOriginRect] = useState(null);
   const lastClickedRef = useRef(null);
+  const hoverTimerRef = useRef(null);
 
-  const handleCardClick = (index, event) => {
-    lastClickedRef.current = event.currentTarget;
-    setOriginRect(event.currentTarget.getBoundingClientRect());
+  const openModal = (index, el) => {
+    lastClickedRef.current = el;
+    setOriginRect(el.getBoundingClientRect());
     setSelectedIndex(index);
   };
 
+  const handleCardClick = (index, event) => {
+    clearTimeout(hoverTimerRef.current);
+    openModal(index, event.currentTarget);
+  };
+
+  const handleHoverStart = (index, event) => {
+    clearTimeout(hoverTimerRef.current);
+    const el = event.currentTarget;
+    hoverTimerRef.current = setTimeout(() => {
+      openModal(index, el);
+    }, 2000);
+  };
+
+  const handleHoverEnd = () => {
+    clearTimeout(hoverTimerRef.current);
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(hoverTimerRef.current);
+  }, []);
+
   const handleClose = () => {
+    clearTimeout(hoverTimerRef.current);
     setSelectedIndex(null);
     setOriginRect(null);
     setTimeout(() => lastClickedRef.current?.focus(), 50);
@@ -311,6 +336,8 @@ export function Servicios() {
               key={s.titulo}
               servicio={s}
               onClick={(e) => handleCardClick(i, e)}
+              onHoverStart={(e) => handleHoverStart(i, e)}
+              onHoverEnd={handleHoverEnd}
             />
           ))}
         </div>
