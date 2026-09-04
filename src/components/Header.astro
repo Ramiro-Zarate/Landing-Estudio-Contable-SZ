@@ -50,6 +50,30 @@ import styles from './Header.module.css';
         const links = header.querySelectorAll('[data-menu-link]');
         const mobile = window.matchMedia('(max-width: 768px)');
 
+        const sections = ['inicio', 'sobre-nosotros', 'servicios', 'consultoria', 'contacto']
+            .map((id) => document.getElementById(id))
+            .filter(Boolean);
+
+        if (sections.length) {
+            const setActive = (id) => {
+                links.forEach((link) => {
+                    link.dataset.active = String(link.getAttribute('href') === `/#${id}`);
+                });
+            };
+
+            const onScroll = () => {
+                const pos = window.scrollY + window.innerHeight * 0.35;
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.offsetTop <= pos) current = section.id;
+                }
+                setActive(current);
+            };
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        }
+
         if (toggle && menu) {
             const setOpen = (open) => {
                 toggle.setAttribute('aria-expanded', String(open));

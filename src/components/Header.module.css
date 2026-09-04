@@ -72,6 +72,14 @@
     color: var(--primary-hover);
 }
 
+.headerNav a[data-active="true"] {
+    color: var(--primary-color);
+}
+
+.headerNav a[data-active="true"]::after {
+    width: 100%;
+}
+
 .headerNav a:hover::after {
     width: 100%;
 }

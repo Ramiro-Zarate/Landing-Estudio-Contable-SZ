@@ -134,6 +134,7 @@ Cosas detectadas en la revisión, no críticas, para hacer en otro PR:
 - Bugs: WhatsApp duplicado en `/privacidad` removido; `WhatsappButton.astro` usa `PUBLIC_WHATSAPP_NUMBER` (fallback placeholder).
 - A11y: `lang="es-AR"`, cards de Servicios/Consultoría con `<span class="sr-only">Ver más…</span>` (reemplaza aria-label que fallaba `label-content-name-mismatch`).
 - Perf: preload de woff2 (Space Grotesk 700 + Inter 400 latin); `Contacto client:visible`; H1 del hero con `clamp()`.
+- Scroll-spy: nav del header marca la sección activa con `[data-active]` (Intersection→scroll con `offsetTop`, inline en `Header.astro`; solo corre si existen las secciones de la home, no en `/privacidad`).
 - QR fiscal roto removido del footer (ver pendientes).
 
 ### PR de política de privacidad y footer fiscal
