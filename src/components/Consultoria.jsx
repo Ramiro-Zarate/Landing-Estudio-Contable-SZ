@@ -78,7 +78,6 @@ function ConsultoriaCard({ consultoria, onClick, onHoverStart, onHoverEnd }) {
         onClick={onClick}
         onMouseEnter={onHoverStart}
         onMouseLeave={onHoverEnd}
-        aria-label={`${consultoria.titulo} - ${consultoria.descripcion}`}
       >
         <div className={styles.svIconWrap}>
           <consultoria.Icon />
@@ -104,6 +103,7 @@ function ConsultoriaCard({ consultoria, onClick, onHoverStart, onHoverEnd }) {
           <line x1="3" y1="21" x2="10" y2="14" />
         </svg>
         <div className={styles.svAccentBar} />
+        <span className="sr-only">Ver más sobre {consultoria.titulo}</span>
       </button>
     </article>
   )

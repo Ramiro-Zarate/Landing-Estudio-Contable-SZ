@@ -118,7 +118,6 @@ function ServicioCard({ servicio, onClick, onHoverStart, onHoverEnd }) {
         onClick={onClick}
         onMouseEnter={onHoverStart}
         onMouseLeave={onHoverEnd}
-        aria-label={`${servicio.titulo} - ${servicio.descripcion}`}
       >
         <div className={styles.svIconWrap}>
           <servicio.Icon />
@@ -144,6 +143,7 @@ function ServicioCard({ servicio, onClick, onHoverStart, onHoverEnd }) {
           <line x1="3" y1="21" x2="10" y2="14" />
         </svg>
         <div className={styles.svAccentBar} />
+        <span className="sr-only">Ver más sobre {servicio.titulo}</span>
       </button>
     </article>
   );

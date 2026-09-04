@@ -24,20 +24,24 @@ Variables de entorno actuales (ver `.env.example`):
 - `PUBLIC_EMAILJS_SERVICE_ID`
 - `PUBLIC_EMAILJS_TEMPLATE_ID`
 - `PUBLIC_EMAILJS_PUBLIC_KEY`
+- `PUBLIC_GA_MEASUREMENT_ID`
+- `PUBLIC_WHATSAPP_NUMBER` (número con código de país, ej. `5491128580480`; si no está seteada, el botón usa el placeholder `0000000000`)
 
 > **No commitear `.env`** — ya está en `.gitignore`. En Vercel se configuran en Project → Settings → Environment Variables.
 
+> **Diseño**: `DESIGN.md` en la raíz es la fuente de verdad del sistema visual; los tokens viven en `src/styles/global.css` (`:root`) y los componentes los consumen vía CSS modules. No reintroducir valores mágicos (colores, anchos de 1100px, radios, sombras) fuera de los tokens.
+
 ## ⚠️ Pendientes prioritarios
 
-### QR fiscal del footer — **ALTA PRIORIDAD**
+### QR fiscal del footer — **ALTA PRIORIDAD** (workaround aplicado 2026-09-04)
 
-El `<a>` del QR en `src/components/Footer.astro:15-25` **no funciona correctamente** en su estado actual:
+El QR roto fue **removido del footer** como workaround (generaba error de red en consola y un link muerto). El footer queda con el texto fiscal `Sergio Omar Zarate · CUIT 20-29027177-1` hasta tener los datos reales.
 
-- **Imagen rota**: `<img src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg">` es el **placeholder genérico de AFIP**, no un QR real con los datos del estudio. Visualmente parece un QR pero no codifica nada escaneable.
-- **URL de sistema equivocado**: `<a href="https://qr.afip.gob.ar/?qr=zUPDabSOKnhNpakZyh6UeQ,,,,">` apunta al verificador de **comprobantes electrónicos** (facturas con CAE/CAEA/CAI), no al sistema de la **Constancia de Inscripción** (F.960). El token `zUPDabSOKnhNpakZyh6UeQ,,,,"` parece un CSV de factura, no un identificador de constancia.
-- **Target name mezclado**: `target="_F960AFIPInfo"` (target de la constancia) refuerza que el `href` está mal: hay un mix de dos sistemas distintos de AFIP.
-- **Al clickear o escanear, da error** porque el token no corresponde a ningún registro válido en el sistema del F.960.
-- La CSP de `vercel.json:28` ya permite `https://www.afip.gob.ar` (fix aplicado), pero eso **no resuelve el problema raíz** — el problema es que la imagen y el href no son del sistema correcto.
+El estado original del bug (referencia, no está más en código):
+
+- La imagen usada (`https://www.afip.gob.ar/images/f960/DATAWEB.jpg`) era el **placeholder genérico de AFIP**, no un QR real con los datos del estudio.
+- El `href` apuntaba al verificador de **comprobantes electrónicos**, no al sistema de la **Constancia de Inscripción** (F.960).
+- La CSP de `vercel.json:28` ya permite `https://www.afip.gob.ar` (sigue aplicable cuando se restaure).
 
 **Para arreglarlo**:
 
@@ -121,7 +125,18 @@ Cosas detectadas en la revisión, no críticas, para hacer en otro PR:
 
 ## Cambios recientes (PR actual)
 
-> **Resumen del PR de política de privacidad y footer fiscal.**
+### Sistema de diseño + audit (2026-09-04)
+
+- `DESIGN.md` — nueva fuente de verdad del sistema visual (tipografía, paleta, layout, radios, sombras, componentes).
+- `src/styles/global.css` — tokens completos en `:root` (`--container-max`, `--content-max`, `--pad-x`, `--fs-*`, `--radius-*`, `--shadow-*`, colores semánticos) + reset mínimo (`box-sizing`, base html/body) + `.sr-only` + `:focus-visible` global + `prefers-reduced-motion: reduce` global.
+- Todos los `.module.css` migrados a tokens (sin valores mágicos de 1100px, grises, radios, sombras).
+- Audit (Lighthouse local mobile): **a11y 100 / best-practices 100 / SEO 100 / perf 89**.
+- Bugs: WhatsApp duplicado en `/privacidad` removido; `WhatsappButton.astro` usa `PUBLIC_WHATSAPP_NUMBER` (fallback placeholder).
+- A11y: `lang="es-AR"`, cards de Servicios/Consultoría con `<span class="sr-only">Ver más…</span>` (reemplaza aria-label que fallaba `label-content-name-mismatch`).
+- Perf: preload de woff2 (Space Grotesk 700 + Inter 400 latin); `Contacto client:visible`; H1 del hero con `clamp()`.
+- QR fiscal roto removido del footer (ver pendientes).
+
+### PR de política de privacidad y footer fiscal
 
 ### Política de privacidad (`/privacidad`)
 

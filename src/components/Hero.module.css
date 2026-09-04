@@ -51,7 +51,7 @@
 
 .heroTitle {
     color: var(--white);
-    font-size: var(--fs-display);
+    font-size: clamp(2.25rem, 6vw, var(--fs-display));
     line-height: 1;
     font-weight: 700;
 }
