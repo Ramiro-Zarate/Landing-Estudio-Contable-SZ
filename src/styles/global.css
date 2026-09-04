@@ -1,12 +1,73 @@
 :root{
     --font-heading: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
+    --font-weight-heading: 700;
+    --font-weight-medium: 500;
+
     --bg-color: #fbfbfe;
     --bg-alt: #f3f3f5;
     --text-color: #050316;
     --primary-color: #9d1a15;
     --secondary-color: #ede7e0;
     --hover-color: #cacaca;
+
+    --primary-hover: #6b1210;
+    --text-muted: #5a5a6e;
+    --text-soft: #4a4a5a;
+    --border: #e5e0d8;
+    --border-input: #d0ccc7;
+    --placeholder: #999;
+    --white: #fff;
+    --whatsapp: #25D366;
+    --focus-ring: rgba(157, 26, 21, 0.1);
+
+    --container-max: 1100px;
+    --content-max: 720px;
+    --section-padding-y: 5rem;
+    --section-padding-y-mobile: 3rem;
+    --pad-x: 1.5rem;
+    --pad-x-mobile: 1rem;
+
+    --fs-display: 4rem;
+    --fs-2xl: 2.25rem;
+    --fs-3xl: 34px;
+    --fs-xl: 1.5rem;
+    --fs-28: 28px;
+    --fs-22: 22px;
+    --fs-18: 1.125rem;
+    --fs-lg: 1.3rem;
+    --fs-md: 1rem;
+    --fs-sm: 0.875rem;
+    --fs-xs: 0.75rem;
+    --text-base: 15px;
+    --text-sm2: 14px;
+    --text-sm: 13px;
+    --text-xs: 12px;
+
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-pill: 999px;
+    --radius-full: 50%;
+
+    --shadow-header: 0 4px 30px rgba(0, 0, 0, 0.06);
+    --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-whatsapp: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
 }
 
 html {
@@ -15,7 +76,7 @@ html {
 
 h1, h2, h3 {
   font-family: var(--font-heading);
-  font-weight: 700; 
+  font-weight: var(--font-weight-heading);
 }
 
 body {

@@ -1,5 +1,5 @@
 .footer {
-    padding: 48px 1.5rem;
+    padding: 48px var(--pad-x);
     text-align: center;
     border-top: 1px solid rgba(0, 0, 0, 0.06);
     background-color: var(--bg-color);
@@ -11,8 +11,8 @@
 
 .copy,
 .dataFiscal {
-    font-size: 0.875rem;
-    color: #5a5a6e;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
     margin: 0;
 }
 
@@ -22,9 +22,9 @@
 }
 
 .legal a {
-    color: #5a5a6e;
+    color: var(--text-muted);
     text-decoration: none;
-    font-size: 0.875rem;
+    font-size: var(--fs-sm);
     transition: color 0.2s;
 }
 

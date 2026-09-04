@@ -1,10 +1,10 @@
 .contacto {
-    padding: 5rem 1.5rem;
+    padding: var(--section-padding-y) var(--pad-x);
     background-color: var(--bg-alt);
 }
 
 .contactoInner {
-    max-width: 1100px;
+    max-width: var(--container-max);
     margin: 0 auto;
     text-align: center;
 }
@@ -19,14 +19,14 @@
 
 .contactoTitle {
     font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 34px;
+    font-weight: var(--font-weight-heading);
+    font-size: var(--fs-3xl);
     line-height: 1.15;
 }
 
 .contactoSubtitle {
-    font-size: 1rem;
-    color: #5a5a6e;
+    font-size: var(--fs-md);
+    color: var(--text-muted);
     margin: 0 auto 1rem;
 }
 
@@ -54,18 +54,18 @@
 
 .contactLabel {
     display: block;
-    font-size: 0.75rem;
+    font-size: var(--fs-xs);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #5a5a6e;
+    color: var(--text-muted);
     margin-bottom: 2px;
 }
 
 .contactValue {
-    font-size: 1rem;
+    font-size: var(--fs-md);
     color: var(--text-color);
     margin: 0;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
 }
 
 .contactoForm {
@@ -82,18 +82,18 @@
 
 .label {
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     color: var(--text-color);
 }
 
 .input,
 .textarea {
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: var(--fs-md);
     padding: 0.85rem 1rem;
-    border: 1px solid #d0ccc7;
-    border-radius: 6px;
-    background: #fff;
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-md);
+    background: var(--white);
     color: var(--text-color);
     transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -102,12 +102,12 @@
 .textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(157, 26, 21, 0.1);
+    box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .input::placeholder,
 .textarea::placeholder {
-    color: #999;
+    color: var(--placeholder);
 }
 
 .textarea {
@@ -117,30 +117,30 @@
 
 .submitBtn {
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: var(--fs-md);
     font-weight: 600;
     padding: 1rem 2rem;
     background-color: var(--primary-color);
-    color: #fff;
+    color: var(--white);
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
     margin-top: 0.5rem;
 }
 
 .submitBtn:hover {
-    background-color: #6b1210;
+    background-color: var(--primary-hover);
     transform: translateY(-1px);
 }
 
 @media (max-width: 768px) {
     .contacto {
-        padding: 3rem 1rem;
+        padding: var(--section-padding-y-mobile) var(--pad-x-mobile);
     }
 
     .contactoTitle {
-        font-size: 1.75rem;
+        font-size: var(--fs-28);
     }
 
     .contactoGrid {
@@ -176,9 +176,9 @@
 .alerta {
   margin-top: 15px;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   text-align: center;
-  font-size: 14px;
+  font-size: var(--text-sm2);
 }
 
 .alertaExito {

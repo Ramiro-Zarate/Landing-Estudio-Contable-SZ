@@ -3,35 +3,35 @@
 }
 
 .serviciosInner {
-    max-width: 1100px;
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: 5rem 1.5rem;
+    padding: var(--section-padding-y) var(--pad-x);
     text-align: center;
 }
 
 .badgeServicios {
     display: inline-block;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
     padding: 4px 14px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     margin-bottom: 1rem;
 }
 
 .svHeading {
     font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 34px;
+    font-weight: var(--font-weight-heading);
+    font-size: var(--fs-3xl);
     line-height: 1.15;
 }
 
 .svSub {
-    font-size: 15px;
-    color: #4a4a5a;
+    font-size: var(--text-base);
+    color: var(--text-soft);
     margin: 0 auto 2.5rem;
     max-width: 480px;
 }
@@ -58,9 +58,9 @@
 }
 
 .svCard {
-    background: #fff;
-    border: 1px solid #e5e0d8;
-    border-radius: 12px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
     position: relative;
     overflow: hidden;
     transition: border-color 0.2s, transform 0.2s;
@@ -95,7 +95,7 @@
 .svIconWrap {
     width: 48px;
     height: 48px;
-    border-radius: 12px;
+    border-radius: var(--radius-xl);
     background: var(--secondary-color);
     display: flex;
     align-items: center;
@@ -119,22 +119,22 @@
 }
 
 .svCard:hover .svIconWrap svg {
-    stroke: #fff;
+    stroke: var(--white);
 }
 
 .svCardTitle {
     display: block;
     font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 15px;
+    font-weight: var(--font-weight-heading);
+    font-size: var(--text-base);
     margin: 0;
 }
 
 .svCardDesc {
     display: block;
-    font-size: 13px;
+    font-size: var(--text-sm);
     line-height: 1.6;
-    color: #5a5a6e;
+    color: var(--text-muted);
     margin: 0;
     max-width: 100%;
 }
@@ -188,15 +188,15 @@
 }
 
 .modalContent {
-    background: #fff;
-    border-radius: 16px;
+    background: var(--white);
+    border-radius: var(--radius-2xl);
     padding: 2.5rem 2rem 2rem;
     max-width: 720px;
     width: 100%;
     max-height: 85vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-modal);
     transform-origin: center center;
     will-change: transform;
     text-align: center;
@@ -210,8 +210,8 @@
     height: 36px;
     background: transparent;
     border: none;
-    border-radius: 8px;
-    color: #5a5a6e;
+    border-radius: var(--radius-lg);
+    color: var(--text-muted);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -237,7 +237,7 @@
 .modalIconWrap {
     width: 80px;
     height: 80px;
-    border-radius: 16px;
+    border-radius: var(--radius-2xl);
     background: var(--secondary-color);
     display: flex;
     align-items: center;
@@ -257,32 +257,32 @@
 
 .modalTitle {
     font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 28px;
+    font-weight: var(--font-weight-heading);
+    font-size: var(--fs-28);
     line-height: 1.15;
     margin: 0 0 0.75rem;
     color: var(--text-color);
 }
 
 .modalDesc {
-    font-size: 15px;
+    font-size: var(--text-base);
     line-height: 1.5;
     color: var(--primary-color);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     margin: 0 0 1.25rem;
 }
 
 .modalDetalle {
-    font-size: 14px;
+    font-size: var(--text-sm2);
     line-height: 1.65;
-    color: #4a4a5a;
+    color: var(--text-soft);
     margin: 0 0 1.5rem;
 }
 
 .modalIncluyeTitle {
     font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 13px;
+    font-weight: var(--font-weight-heading);
+    font-size: var(--text-sm);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--text-color);
@@ -301,9 +301,9 @@
 }
 
 .modalIncluye li {
-    font-size: 14px;
+    font-size: var(--text-sm2);
     line-height: 1.5;
-    color: #4a4a5a;
+    color: var(--text-soft);
     padding-left: 1.5rem;
     position: relative;
 }
@@ -336,7 +336,7 @@
     }
 
     .modalTitle {
-        font-size: 22px;
+        font-size: var(--fs-22);
     }
 
     .modalIncluye {

@@ -4,12 +4,12 @@
     right: 24px;
     width: 60px;
     height: 60px;
-    background-color: #25D366;
-    border-radius: 50%;
+    background-color: var(--whatsapp);
+    border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-whatsapp);
     z-index: 9999;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     text-decoration: none;
@@ -25,7 +25,7 @@
 .icon {
     width: 36px;
     height: 36px;
-    fill: #ffffff;
+    fill: var(--white);
     position: relative;
     z-index: 1;
 }
@@ -35,13 +35,13 @@
     right: 72px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #050316;
-    color: #ffffff;
+    background-color: var(--text-color);
+    color: var(--white);
     font-family: var(--font-body, 'Inter', sans-serif);
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: var(--fs-sm);
+    font-weight: var(--font-weight-medium);
     padding: 0.5rem 0.875rem;
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
@@ -56,7 +56,7 @@
     transform: translateY(-50%);
     border-width: 6px 0 6px 6px;
     border-style: solid;
-    border-color: transparent transparent transparent #050316;
+    border-color: transparent transparent transparent var(--text-color);
 }
 
 .button:hover .tooltip {
