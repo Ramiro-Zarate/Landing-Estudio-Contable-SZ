@@ -13,35 +13,30 @@ const consultorias = [
     titulo: "Apertura de Agencias",
     descripcion: "Planificamos la mejor opción para tu encuadre impositivo y generamos todas las altas correspondientes en los distintos organismos.",
     Icon: IconApertura,
-    detalle: "Te acompañamos en cada etapa del nacimiento de tu agencia: definimos el encuadre impositivo más conveniente y gestionamos todas las inscripciones y registros requeridos para que arranques a operar con todo en regla.",
     incluye: ["Inscripciones Impositivas", "Registros de Marca", "Registro de Base de Datos", "Inscripción en registro Faevyt", "Sellos de calidad"],
   },
   {
     titulo: "Impuestos",
     descripcion: "Liquidamos tus impuestos en base a las particularidades del sector, sobre todo en cuanto al IVA e Ingresos Brutos.",
     Icon: IconFiscal,
-    detalle: "Nos especializamos en el tratamiento impositivo propio de las agencias de viajes y turismo, cuidando cada detalle del IVA y de los Ingresos Brutos para que pagues lo correcto y aproveches los beneficios del sector.",
     incluye: ["IVA: Servicios gravados a tasas del 21%, 10,5%, exentos o no alcanzados", "Ingresos Brutos: Tratamiento de servicios en comisión", "Convenio Multilateral: Liquidación para todas las jurisdicciones", "SICORE: Régimen de percepciones", "Impuesto a los Débitos y Créditos: Recupero de dicho impuesto", "Sircreb: Solicitud de reducción de alícuotas de retención"],
   },
   {
     titulo: "Recursos humanos",
     descripcion: "Analizamos las distintas opciones de contratación del personal buscando un equilibrio entre costo y beneficio.",
     Icon: IconSueldos,
-    detalle: "Evaluamos las alternativas de contratación de tu equipo para encontrar el esquema más conveniente, equilibrando el costo laboral con el beneficio y el cumplimiento de las normativas vigentes.",
     incluye: ["Empleados en relación de dependencia", "Servicios tercerizados", "Contratación de colaboradores"],
   },
   {
     titulo: "Facturación",
     descripcion: "Podés tercerizar con nuestro equipo de trabajo las emisiones de facturas o podemos brindarte una capacitación a medida para el personal de la Agencia para realizar estas tareas.",
     Icon: IconTramites,
-    detalle: "Nos ocupamos de la facturación de tu agencia por vos o capacitamos a tu personal para que la realice de forma correcta, cubriendo desde los viajes individuales hasta las ventas corporativas y las operaciones con extranjeros.",
     incluye: ["Capacitaciones", "Facturación de viajes individuales", "Facturación de salidas grupales", "Facturación de ventas corporativas", "Facturas a extranjeros (Factura T)"],
   },
   {
-    titulo: "Consultoría para estudios",
+    titulo: "Consultoría para Estudios Contables",
     descripcion: "Si tenés un estudio contable y desconocés las particularidades impositivas del sector, podemos ayudarte para que puedas asesorar tus clientes o podés tercerizar con nosotros dichos servicios.",
     Icon: IconConsultoria,
-    detalle: "Compartimos nuestro conocimiento específico del sector turístico con otros estudios contables, ya sea para capacitarlos en estas particularidades o para tomar en forma tercerizada la gestión impositiva y contable de sus clientes del rubro.",
     incluye: ["Capacitaciones", "Delegación de tareas", "Consultorías"],
   },
 ]
@@ -109,11 +104,42 @@ function ConsultoriaCard({ consultoria, onClick, onHoverStart, onHoverEnd }) {
   )
 }
 
-function ConsultoriaModal({ consultoria, originRect, onClose }) {
+function ConsultoriaModal({ consultoria, originRect, onClose, closeOnLeave }) {
   const modalRef = useRef(null)
   const closeRef = useRef(null)
   const closingRef = useRef(false)
+  const closeTimerRef = useRef(null)
   const [backdropFaded, setBackdropFaded] = useState(false)
+
+  const handleMouseMove = (e) => {
+    if (!closeOnLeave || !originRect) return
+    const { clientX, clientY } = e
+    const inCard =
+      clientX >= originRect.left - 8 &&
+      clientX <= originRect.right + 8 &&
+      clientY >= originRect.top - 8 &&
+      clientY <= originRect.bottom + 8
+    const modalRect = modalRef.current?.getBoundingClientRect()
+    const inModal = modalRect
+      ? clientX >= modalRect.left - 16 &&
+        clientX <= modalRect.right + 16 &&
+        clientY >= modalRect.top - 16 &&
+        clientY <= modalRect.bottom + 16
+      : false
+
+    if (inCard || inModal) {
+      clearTimeout(closeTimerRef.current)
+      closeTimerRef.current = null
+      return
+    }
+
+    if (!closeTimerRef.current) {
+      closeTimerRef.current = setTimeout(() => {
+        closeTimerRef.current = null
+        handleClose()
+      }, 250)
+    }
+  }
 
   useLayoutEffect(() => {
     if (!modalRef.current || !originRect) return
@@ -161,7 +187,10 @@ function ConsultoriaModal({ consultoria, originRect, onClose }) {
       if (e.key === 'Escape') handleClose()
     }
     document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
+    return () => {
+      document.removeEventListener('keydown', handler)
+      clearTimeout(closeTimerRef.current)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -189,6 +218,7 @@ function ConsultoriaModal({ consultoria, originRect, onClose }) {
     <div
       className={`${styles.modalBackdrop} ${backdropFaded ? styles.backdropVisible : ''}`}
       onClick={handleClose}
+      onMouseMove={handleMouseMove}
     >
       <div
         ref={modalRef}
@@ -224,7 +254,6 @@ function ConsultoriaModal({ consultoria, originRect, onClose }) {
           {consultoria.titulo}
         </h3>
         <p className={styles.modalDesc}>{consultoria.descripcion}</p>
-        <p className={styles.modalDetalle}>{consultoria.detalle}</p>
         <h4 className={styles.modalIncluyeTitle}>Qué incluye</h4>
         <ul className={styles.modalIncluye}>
           {consultoria.incluye.map((item, i) => (
@@ -241,8 +270,10 @@ export function Consultoria() {
   const [originRect, setOriginRect] = useState(null)
   const lastClickedRef = useRef(null)
   const hoverTimerRef = useRef(null)
+  const openedViaRef = useRef(null)
 
-  const openModal = (index, el) => {
+  const openModal = (index, el, via) => {
+    openedViaRef.current = via
     lastClickedRef.current = el
     setOriginRect(el.getBoundingClientRect())
     setSelectedIndex(index)
@@ -250,15 +281,15 @@ export function Consultoria() {
 
   const handleCardClick = (index, event) => {
     clearTimeout(hoverTimerRef.current)
-    openModal(index, event.currentTarget)
+    openModal(index, event.currentTarget, 'click')
   }
 
   const handleHoverStart = (index, event) => {
     clearTimeout(hoverTimerRef.current)
     const el = event.currentTarget
     hoverTimerRef.current = setTimeout(() => {
-      openModal(index, el)
-    }, 2000)
+      openModal(index, el, 'hover')
+    }, 1000)
   }
 
   const handleHoverEnd = () => {
@@ -308,6 +339,7 @@ export function Consultoria() {
           consultoria={consultorias[selectedIndex]}
           originRect={originRect}
           onClose={handleClose}
+          closeOnLeave={openedViaRef.current === 'hover'}
         />
       )}
     </section>

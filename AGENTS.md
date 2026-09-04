@@ -135,6 +135,7 @@ Cosas detectadas en la revisión, no críticas, para hacer en otro PR:
 - A11y: `lang="es-AR"`, cards de Servicios/Consultoría con `<span class="sr-only">Ver más…</span>` (reemplaza aria-label que fallaba `label-content-name-mismatch`).
 - Perf: preload de woff2 (Space Grotesk 700 + Inter 400 latin); `Contacto client:visible`; H1 del hero con `clamp()`.
 - Scroll-spy: nav del header marca la sección activa con `[data-active]` (Intersection→scroll con `offsetTop`, inline en `Header.astro`; solo corre si existen las secciones de la home, no en `/privacidad`).
+- Ajustes UX (2026-09-04): párrafos de Consultoría a ancho completo (`max-width: none`); modales se abren con **1s de hover** y, si se abrieron por hover, se cierran al sacar el cursor de la tarjeta **con zona de permanencia (tarjeta + modal) y grace de 250ms** (`closeOnLeave`, click queda abierto hasta cerrar); campo `detalle` (copy) eliminado de tarjetas/modales y su clase CSS.
 - QR fiscal roto removido del footer (ver pendientes).
 
 ### PR de política de privacidad y footer fiscal

@@ -42,13 +42,14 @@
 
 .svSubConsultoria {
     line-height: 1.75;
-    max-width: 640px;
+    max-width: none;
     margin: 0 auto 1.25rem;
 }
 
 .svSubConsultoriaLast {
+    line-height: 1.75;
     margin: 0 auto 2.5rem;
-    max-width: 640px;
+    max-width: none;
 }
 
 .svGrid {
@@ -270,13 +271,6 @@
     color: var(--primary-color);
     font-weight: var(--font-weight-medium);
     margin: 0 0 1.25rem;
-}
-
-.modalDetalle {
-    font-size: var(--text-sm2);
-    line-height: 1.65;
-    color: var(--text-soft);
-    margin: 0 0 1.5rem;
 }
 
 .modalIncluyeTitle {

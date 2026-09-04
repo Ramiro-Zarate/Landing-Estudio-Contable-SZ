@@ -18,70 +18,60 @@ const servicios = [
     titulo: "Contabilidad",
     descripcion: "Brindamos reportes contables basados en el proceso de información procesada a través de nuestro sistema de Gestión Contable.",
     Icon: IconContabilidad,
-    detalle: "Llevamos el registro completo y actualizado de todas las operaciones contables, con conciliaciones bancarias mensuales, ajustes por inflación cuando corresponda, y reportes ejecutivos para tener el control financiero al día.",
     incluye: ["Contabilidad general", "Registro y control de operaciones", "Análisis de cuentas", "Libros contables", "Balances", "Estados contables", "Conciliaciones bancarias"],
   },
   {
     titulo: "Impuestos",
     descripcion: "Gestionamos la presentación y pago de todos los tributos nacionales, provinciales y municipales, con planificación fiscal estratégica para optimizar la carga tributaria dentro del marco legal.",
     Icon: IconImpuestos,
-    detalle: "Nuestro equipo se encarga de mantenerte al día con todas tus obligaciones tributarias en los tres niveles de gobierno, monitoreando vencimientos y planificando cada presentación para minimizar riesgos y aprovechar los beneficios fiscales disponibles.",
-    incluye: ["Monotributo (altas / Bajas / Modificaciones / Recategorizaciones)", "IVA", "Ganancias", "Bienes personales", "Retenciones y percepciones", "Ingresos Brutos", "Convenio Multilateral", "Tasas municipales"],
+    incluye: ["IVA", "Ganancias", "Bienes personales", "Retenciones y percepciones", "Ingresos Brutos", "Convenio Multilateral", "Tasas municipales", "Monotributo (altas / Bajas / Modificaciones / Recategorizaciones)"],
   },
   {
     titulo: "Sueldos y jornales",
     descripcion: "Liquidamos diversos convenios colectivos (Comercio / Turismo / Pasteleros / UOM / construcción / Lavaderos / Camioneros); te enviamos los recibos digitalizados junto con las boletas de pago correspondientes a cada Convenio Colectivo.",
     Icon: IconSueldos,
-    detalle: "Nos encargamos de la liquidación mensual del personal en relación de dependencia, incluyendo recibos digitales, certificaciones, y cumplimiento de cargas sociales en tiempo y forma.",
     incluye: ["Altas como empleador", "Gestionamos tu ART", "Altas / bajas y modificaciones de empleados", "Liquidaciones mensuales y quincenales", "Aguinaldos", "Vacaciones", "Liquidaciones Finales", "Cargas sociales", "Boletas sindicales", "Certificaciones de Trabajo", "Libros de Sueldo Digital"],
   },
   {
     titulo: "Administración",
     descripcion: "Trabajamos en conjunto con las empresas para la organización y reorganización de procesos administrativos a medida de cada una de ellas para la optimización de recursos.",
     Icon: IconFiscal,
-    detalle: "Acompañamos la gestión diaria de tu empresa, ordenando procesos y controles internos para ganar eficiencia y transparencia. Nos adaptamos a la realidad de cada organización y proponemos mejoras concretas que se traducen en ahorro de tiempo y recursos.",
     incluye: ["Análisis de costos", "Análisis de rentabilidad", "Organización administrativa", "Controles de procesos internos", "Recursos humanos", "Implementación de sistemas de gestión"],
   },
   {
     titulo: "Inspecciones",
     descripcion: "Atendemos fiscalizaciones e inspecciones de los distintos Organismos de Control y Recaudación.",
     Icon: IconInspecciones,
-    detalle: "Te acompañamos durante las fiscalizaciones de los organismos de control, preparando la documentación requerida, revisando los descargos y gestionando las instancias administrativas para defender tus derechos y minimizar el impacto de las inspecciones.",
     incluye: ["ARCA", "ARBA", "AGIP", "Ministerio de Trabajo", "Sindicatos", "Municipalidades"],
   },
   {
     titulo: "Sociedades",
     descripcion: "Acompañamos el proceso completo de apertura de tu sociedad, desde la elección del tipo societario hasta la inscripción en los organismos correspondientes, incluyendo el asesoramiento jurídico-contable inicial.",
     Icon: IconConstitucion,
-    detalle: "Te guiamos paso a paso en la constitución de tu sociedad, asesorándote en la elección del tipo societario y gestionando la inscripción en los organismos correspondientes, para que arranques con todo en regla desde el primer día.",
     incluye: ["Constitución de Sociedades en IGJ / DPPJ", "Inscripciones", "Modificaciones societarias", "Libros y Actas", "Trámites ante organismos", "Disolución y Liquidación"],
   },
   {
     titulo: "Auditorías y Control",
     descripcion: "Revisión independiente de tus estados financieros y registros contables, generando un dictamen profesional que brinda confianza a socios, inversores y organismos de control.",
     Icon: IconAuditoria,
-    detalle: "Realizamos auditorías contables y revisiones independientes de tus estados financieros y registros, con un enfoque objetivo que aporta confianza a socios, inversores y organismos de control, y detecta oportunidades de mejora en tu gestión interna.",
     incluye: ["Auditorías contables", "Revisión de Estados Contables", "Control interno", "Análisis de documentación"],
   },
   {
     titulo: "Asociaciones Civiles",
     descripcion: "Colaboramos con Asociaciones sin fines de lucro en el desarrollo de actividades y el cumplimiento fiscal y contable especifico.",
     Icon: IconAsociaciones,
-    detalle: "Acompañamos a asociaciones y entidades sin fines de lucro en su desarrollo, ocupándonos del cumplimiento contable y fiscal específico de estas organizaciones, la gestión de exenciones y la rendición de cuentas ante los organismos correspondientes.",
     incluye: ["Constitución de asociaciones y mutuales", "Gestión fiscal", "Exenciones", "Contabilidad y balanaces", "Regularizaciones", "Rendiciones de cuenta"],
   },
   {
     titulo: "Tramites y Certificaciones",
     descripcion: "Preparamos distintos informes de acuerdo a los requerimientos de distintos organismos y entidades financieras.",
     Icon: IconTramites,
-    detalle: "Emitimos certificaciones e informes contables ajustados a los requerimientos de bancos y organismos, y realizamos los trámites necesarios para que tu empresa esté siempre en regla ante cualquier entidad.",
     incluye: ["Certificación de Ventas", "Certificacion de Ingresos", "Certificación de Origen de Fondos", "Informes sobre Activos Fijos", "Transmisión gratuita de bienes"],
   },
   {
     titulo: "Otros servicios",
     descripcion: "Realizamos todos aquellos trámites para mantener en orden tus proyectos y empresas de acuerdo a las multiples exigencias de los distintos organismos.",
     Icon: IconOtros,
-    detalle: "Ofrecemos una amplia gama de trámites y gestiones complementarias para que tu empresa cumpla con todas las exigencias de los distintos organismos, manteniéndote siempre al día y sin preocupaciones.",
     incluye: ["SIRADIG", "Moratorias", "Planes de pago", "Personal de casas particulares", "Pericias contables", "Seguros", "Registro de Marcas", "Facturación", "Registro Pyme"],
   },
 ];
@@ -149,11 +139,42 @@ function ServicioCard({ servicio, onClick, onHoverStart, onHoverEnd }) {
   );
 }
 
-function ServicioModal({ servicio, originRect, onClose }) {
+function ServicioModal({ servicio, originRect, onClose, closeOnLeave }) {
   const modalRef = useRef(null);
   const closeRef = useRef(null);
   const closingRef = useRef(false);
+  const closeTimerRef = useRef(null);
   const [backdropFaded, setBackdropFaded] = useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!closeOnLeave || !originRect) return;
+    const { clientX, clientY } = e;
+    const inCard =
+      clientX >= originRect.left - 8 &&
+      clientX <= originRect.right + 8 &&
+      clientY >= originRect.top - 8 &&
+      clientY <= originRect.bottom + 8;
+    const modalRect = modalRef.current?.getBoundingClientRect();
+    const inModal = modalRect
+      ? clientX >= modalRect.left - 16 &&
+        clientX <= modalRect.right + 16 &&
+        clientY >= modalRect.top - 16 &&
+        clientY <= modalRect.bottom + 16
+      : false;
+
+    if (inCard || inModal) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+      return;
+    }
+
+    if (!closeTimerRef.current) {
+      closeTimerRef.current = setTimeout(() => {
+        closeTimerRef.current = null;
+        handleClose();
+      }, 250);
+    }
+  };
 
   useLayoutEffect(() => {
     if (!modalRef.current || !originRect) return;
@@ -202,7 +223,10 @@ function ServicioModal({ servicio, originRect, onClose }) {
       if (e.key === 'Escape') handleClose();
     };
     document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
+    return () => {
+      document.removeEventListener('keydown', handler);
+      clearTimeout(closeTimerRef.current);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -231,6 +255,7 @@ function ServicioModal({ servicio, originRect, onClose }) {
     <div
       className={`${styles.modalBackdrop} ${backdropFaded ? styles.backdropVisible : ''}`}
       onClick={handleClose}
+      onMouseMove={handleMouseMove}
     >
       <div
         ref={modalRef}
@@ -266,7 +291,6 @@ function ServicioModal({ servicio, originRect, onClose }) {
           {servicio.titulo}
         </h3>
         <p className={styles.modalDesc}>{servicio.descripcion}</p>
-        <p className={styles.modalDetalle}>{servicio.detalle}</p>
         <h4 className={styles.modalIncluyeTitle}>Qué incluye</h4>
         <ul className={styles.modalIncluye}>
           {servicio.incluye.map((item, i) => (
@@ -283,8 +307,10 @@ export function Servicios() {
   const [originRect, setOriginRect] = useState(null);
   const lastClickedRef = useRef(null);
   const hoverTimerRef = useRef(null);
+  const openedViaRef = useRef(null);
 
-  const openModal = (index, el) => {
+  const openModal = (index, el, via) => {
+    openedViaRef.current = via;
     lastClickedRef.current = el;
     setOriginRect(el.getBoundingClientRect());
     setSelectedIndex(index);
@@ -292,15 +318,15 @@ export function Servicios() {
 
   const handleCardClick = (index, event) => {
     clearTimeout(hoverTimerRef.current);
-    openModal(index, event.currentTarget);
+    openModal(index, event.currentTarget, 'click');
   };
 
   const handleHoverStart = (index, event) => {
     clearTimeout(hoverTimerRef.current);
     const el = event.currentTarget;
     hoverTimerRef.current = setTimeout(() => {
-      openModal(index, el);
-    }, 2000);
+      openModal(index, el, 'hover');
+    }, 1000);
   };
 
   const handleHoverEnd = () => {
@@ -348,6 +374,7 @@ export function Servicios() {
           servicio={servicios[selectedIndex]}
           originRect={originRect}
           onClose={handleClose}
+          closeOnLeave={openedViaRef.current === 'hover'}
         />
       )}
     </section>
