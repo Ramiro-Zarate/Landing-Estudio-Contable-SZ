@@ -118,7 +118,7 @@ Tokens en `src/styles/global.css`.
 - **About** — badge, H2 con `<em>` en primario, intro larga, grid de 4 valores con SVG chips, divider, grid de 4 stats.
 - **Servicios / Consultoría** — grid `auto-fit minmax(180px,1fr)` de cards clickeables (2s hover o click) que abren modal flip con detalle + "Qué incluye". Fondo alterno. Consultoría es la especialización en Agencias de Viajes y Turismo.
 - **Contacto** — grid `1fr 300px`: form (EmailJS, nombre/email/mensaje) + datos (dirección, teléfono, email).
-- **Footer** — centrado, copyright dinámico, link legal, data fiscal en texto + QR fiscal de AFIP (pendiente corrección, ver AGENTS.md).
+- **Footer** — centrado, copyright dinámico, link legal, data fiscal en texto + Data Fiscal de AFIP (imagen oficial `DATAWEB.jpg` en https, 100px de ancho).
 - **WhatsApp** — botón flotante 60px fijo abajo-derecha, tooltip al hover, `#25D366`.
 - **Privacidad** — página de lectura en `--content-max`, jerarquía h1→h2→h3 con `--font-heading`, links en primario, `code` en mono.
 

@@ -25,7 +25,7 @@ Variables de entorno actuales (ver `.env.example`):
 - `PUBLIC_EMAILJS_TEMPLATE_ID`
 - `PUBLIC_EMAILJS_PUBLIC_KEY`
 - `PUBLIC_GA_MEASUREMENT_ID`
-- `PUBLIC_WHATSAPP_NUMBER` (número con código de país, ej. `5491128580480`; si no está seteada, el botón usa el placeholder `0000000000`)
+- `PUBLIC_WHATSAPP_NUMBER` (número con código de país, sin `+` ni espacios, ej. `5491128580480`; si no está seteada, el botón usa ese mismo número real como fallback — ver `WhatsappButton.astro:4`)
 
 > **No commitear `.env`** — ya está en `.gitignore`. En Vercel se configuran en Project → Settings → Environment Variables.
 
@@ -33,26 +33,25 @@ Variables de entorno actuales (ver `.env.example`):
 
 ## ⚠️ Pendientes prioritarios
 
-### QR fiscal del footer — **ALTA PRIORIDAD** (workaround aplicado 2026-09-04)
+### QR fiscal del footer — **HECHO** (2026-09-17)
 
-El QR roto fue **removido del footer** como workaround (generaba error de red en consola y un link muerto). El footer queda con el texto fiscal `Sergio Omar Zarate · CUIT 20-29027177-1` hasta tener los datos reales.
+Restaurado el Data Fiscal oficial de AFIP con los datos reales del estudio (código `zUPDabSOKnhNpakZyh6UeQ`).
 
-El estado original del bug (referencia, no está más en código):
+Estado final en `src/components/Footer.astro`:
 
-- La imagen usada (`https://www.afip.gob.ar/images/f960/DATAWEB.jpg`) era el **placeholder genérico de AFIP**, no un QR real con los datos del estudio.
-- El `href` apuntaba al verificador de **comprobantes electrónicos**, no al sistema de la **Constancia de Inscripción** (F.960).
-- La CSP de `vercel.json:28` ya permite `https://www.afip.gob.ar` (sigue aplicable cuando se restaure).
+- Bloque propio `<a class={styles.fiscalQr}>` (ya **no** dentro del `<nav aria-label="Enlaces legales">`, que quedó solo con el link de privacidad).
+- `href="http://qr.afip.gob.ar/?qr=zUPDabSOKnhNpakZyh6UeQ,,"` con `target="_blank"` + `rel="noopener noreferrer"`.
+- `<img src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" alt="Data Fiscal AFIP" width="239" height="327" loading="lazy" decoding="async">`.
+- `border: 0` y tamaño (`width: 100px`) viven en `Footer.module.css` (`.fiscalQr img`), **no** como atributo `border="0"` (obsoleto en HTML5 → era el error que reportaba Astro).
+- La CSP de `vercel.json:28` ya permitía `https://www.afip.gob.ar` en `img-src`; no hizo falta tocarla.
 
-**Para arreglarlo**:
+Notas de decisiones:
 
-1. **Manual (vos)**: entrar a AFIP con CUIT 20-29027177-1 y clave fiscal → "Constancia de Inscripción" (F.960) → ver la constancia → copiar la URL que aparece asociada al QR oficial. Si AFIP te da una imagen del QR para descargar, guardarla como `public/qr-fiscal.png` (o `.jpg`).
-2. **Si tenés URL pero no imagen**: regenero `public/qr-fiscal.png` con `scripts/generate-fiscal-qr.mjs` (lo borré en un revert anterior; lo vuelvo a crear) usando el paquete `qrcode` que ya está en `node_modules`.
-3. **Si tenés imagen**: la guardás en `public/qr-fiscal.png` y yo actualizo el `src` y el `href` del `<a>`.
-4. **Yo**: actualizo `src/components/Footer.astro` con los datos correctos y rebuild.
+- **Imagen por HTTPS**: la original venía en `http://`; en el sitio HTTPS eso es mixed-content y la CSP lo bloquea. `https://www.afip.gob.ar/images/f960/DATAWEB.jpg` responde 200 `image/jpeg` (239×327 reales).
+- **`href` queda en HTTP**: `qr.afip.gob.ar` **no tiene TLS** (falla el handshake con https). Como es una navegación de nivel superior (no un subrecurso), no lo bloquean ni mixed-content ni la CSP.
+- Es el **snippet oficial de AFIP** (imagen `DATAWEB.jpg` genérica + código en el `?qr=`): se hace click y abre la constancia. Alternativa descartada por ahora: generar un QR escaneable self-hosted en `public/qr-fiscal.png`.
 
-**Workaround mientras tanto**: el footer ya muestra `Sergio Omar Zarate · CUIT 20-29027177-1` en texto. Si querés sacar el QR roto y dejar sólo el texto hasta tener los datos correctos, decime y lo hago en un cambio mínimo.
-
-**Por qué es ALTA prioridad**: vos indicás que el QR fiscal es requisito para sitios web de servicios. Si lo dejamos como está, queda como un link muerto en producción y un QR que no escanea.
+Pendiente menor: el ancho de 100px es provisorio — ajustar si el diseño lo pide.
 
 ### Google Analytics 4 — **HECHO** (2026-07-27)
 
@@ -163,7 +162,7 @@ Ahora: tres elementos centrados, con `padding: 48px 1.5rem` (punto medio del ran
 
 ### Otros cambios del PR
 
-- `src/components/Contacto.jsx` — email actualizado a `administracion@estudiocontablesz.com` y dirección a `Burzaco, Buenos Aires`. (El teléfono sigue como placeholder `+54 11 1234-5678` — fuera de scope de este PR.)
+- `src/components/Contacto.jsx` — email actualizado a `administracion@estudiocontablesz.com`, dirección a `Burzaco, Buenos Aires` y teléfono real `+54 9 11 2858-0480`.
 - `src/layouts/Layout.astro` — refactor mínimo: acepta prop `seo?` opcional. Si no se pasa, conserva los meta tags originales de la home (no rompe nada). Si se pasa, monta `<Seo {...seo} />`.
 - `astro.config.mjs` — `site: 'https://estudiocontablesz.com'` agregado.
 

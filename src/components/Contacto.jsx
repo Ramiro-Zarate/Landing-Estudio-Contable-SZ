@@ -100,7 +100,7 @@ export function Contacto() {
                         </svg>
                         <div>
                             <span className={styles.contactLabel}>Teléfono</span>
-                            <p className={styles.contactValue}>+54 11 1234-5678</p>
+                            <p className={styles.contactValue}>+54 9 11 2858-0480</p>
                         </div>
                     </div>
                     <div className={styles.contactItem}>

@@ -32,3 +32,14 @@
     color: var(--primary-color);
     text-decoration: underline;
 }
+
+.fiscalQr {
+    display: inline-flex;
+}
+
+.fiscalQr img {
+    border: 0;
+    width: 100px;
+    height: auto;
+    display: block;
+}
