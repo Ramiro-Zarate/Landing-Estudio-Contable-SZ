@@ -115,6 +115,28 @@
     min-height: 120px;
 }
 
+.consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.consent input {
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: var(--primary-color);
+}
+
+.consent a {
+    color: var(--primary-color);
+}
+
 .submitBtn {
     font-family: var(--font-body);
     font-size: var(--fs-md);
