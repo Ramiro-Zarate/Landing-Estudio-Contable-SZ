@@ -31,6 +31,26 @@ Variables de entorno actuales (ver `.env.example`):
 
 > **Diseño**: `DESIGN.md` en la raíz es la fuente de verdad del sistema visual; los tokens viven en `src/styles/global.css` (`:root`) y los componentes los consumen vía CSS modules. No reintroducir valores mágicos (colores, anchos de 1100px, radios, sombras) fuera de los tokens.
 
+## Flujo Git
+
+- **`main` = producción** (Vercel Production Branch). Está **protegida**: no se pushea directo, todo entra por **PR**.
+- Ramas: `feat/…`, `fix/…`, `chore/…`, `docs/…`.
+- Commits: `<type>: <description>` en inglés, lowercase, sin punto final.
+- Cada rama/PR genera una **Preview Deployment** de Vercel con su propia URL (no toca producción).
+- **Merge a `main` solo con aprobación del cliente.**
+
+Flujo típico:
+
+```bash
+git switch -c feat/<tema>
+git add <archivos>
+git commit -m "feat: ..."
+git push -u origin feat/<tema>
+# abrir PR en GitHub → Vercel comenta la preview → revisar → merge
+```
+
+> **No correr `npm run build`/`preview` con `astro dev` levantado.** `astro.config.mjs` separa el `cacheDir` de Vite por comando (`node_modules/.vite/dev` para dev, `node_modules/.vite/build` para build) para que no compartan `deps`. Sin esto, un build re-optimiza `node_modules/.vite/deps` y rompe la hidratación de los islands React en el dev server en curso (Servicios/Consultoría se ven vacíos). Si ya pasó: frenar dev, `Remove-Item -Recurse -Force node_modules\.vite`, `npm run dev` y hard refresh.
+
 ## ⚠️ Pendientes prioritarios
 
 ### QR fiscal del footer — **HECHO** (2026-09-17)
@@ -123,6 +143,22 @@ Cosas detectadas en la revisión, no críticas, para hacer en otro PR:
 - [ x ] `src/layouts/Layout.astro:5-19` — los meta tags (`description`, `title`, `icon`) están hardcodeados en el layout. El componente `src/components/Seo.astro` existe pero no se usa. Migrar para evitar duplicación y ganar el `og:image`/Twitter cards. **(Parcial: el Layout ahora acepta prop `seo?` opcional y la página `/privacidad` lo usa. La home sigue pasando por el default del Layout para no tocarla en este PR.)**
 
 ## Cambios recientes (PR actual)
+
+### Rediseño v3 — **HECHO y EN PRODUCCIÓN** (2026-09-24, rama `feat/redesign-v3`, PR #2)
+
+Rediseño aprobado por el cliente y mergeado a `main`. Base: `main` (no incluye el rediseño v2 ni las animaciones de cards, que se descartaron; quedan archivados en los tags `archive/redesign-v2-20260924` y `archive/animations-20260924`).
+
+- **Plomería** (`e8eeef0`): fuentes **self-hosted** (`public/fonts/*`, `@font-face` en `global.css`) + tokens de diseño + `og-image.png` + `Seo.astro` (og/Twitter/JSON-LD) + CSP sin Google Fonts. `Layout.astro` precarga los woff2 y `fondo_hero.webp`.
+- **Fix de dev** (`c78a7ef`): `astro.config.mjs` separa el `cacheDir` de Vite por comando (ver "Flujo Git").
+- **Badges** (`958cee2`): se quitaron los pill badges uppercase del hero, About, Servicios y Consultoría + su CSS huérfano (`heroBadge`, `abBadge`, `badgeServicios`).
+- **CTAs del hero** (`f8ee3fe`): "Solicitar consulta" (`#contacto`) + "Escribinos por WhatsApp" (`wa.me`, usa `PUBLIC_WHATSAPP_NUMBER`); reemplazan al botón "Conocer Más".
+- **Animaciones de scroll/texto** (`c11f61c`): reveal con `IntersectionObserver` sobre `[data-reveal]` (clase `html.js` inline; stagger por `--reveal-i`), count-up de stats de About (`[data-count]` + `rAF`), header `data-scrolled`, entrada del WhatsApp y reveal del footer. Tokens de motion: `--ease-out-soft`, `--dur-reveal`, `--reveal-dist`. Con `prefers-reduced-motion` se muestra todo. **No** se animan las cards de Servicios/Consultoría/valores.
+  - Fix (`dc477d6`): `.is-revealed` usa `translate: none` (no `0 0`) para no crear un *containing block* que rompía el centrado de los modales `position: fixed`.
+- **Checkbox de consentimiento** (`840b5fe`, alineación `d6bc8fe`): en `Contacto.jsx`, `required`, linkea a `/privacidad`; `display: flex` con `align-items: center`.
+- **Página `/terminos`** (`1945431`): **borrador** con placeholders y aviso "documento preliminar", `robots: noindex, nofollow`, **sin link en el footer**. Se agregó prop `robots` a `Seo.astro`.
+- **Privacidad** (`630fb8a`): sección 2.c pasa de "Google Fonts" a "Tipografías auto-alojadas"; sección 5 → "Google LLC (Google Analytics 4)".
+
+> **Pendiente**: completar el texto legal de `/terminos` (estudio/abogado) y recién ahí linkearlo en `Footer.astro` y sacarle el `noindex`.
 
 ### Sistema de diseño + audit (2026-09-04)
 
@@ -217,7 +253,7 @@ La política de privacidad y el footer usan **`administracion@estudiocontablesz.
 
 - **Idioma UI**: `es_AR` (`src/components/Seo.astro:21`).
 - **Sin comentarios en código** (regla global del agente).
-- **React islands solo si hace falta**. Hoy: `Servicios.jsx`, `Contacto.jsx`. El resto son `.astro` estáticos.
+- **React islands solo si hace falta**. Hoy: `Servicios.jsx`, `Consultoria.jsx`, `Contacto.jsx`. El resto son `.astro` estáticos.
 - **Headers de seguridad** (`vercel.json`): al sumar un origen nuevo (CDN, analytics, fonts, etc.), actualizar CSP en el mismo PR.
 - **Variables públicas**: prefijo `PUBLIC_` requerido por Astro.
 - **Estilo de commits**: `<type>: <description>` en inglés, lowercase, sin punto final (ver historial).
