@@ -40,15 +40,6 @@
     gap: .5rem;
 }
 
-.heroBadge{
-    border: solid 2px var(--primary-color);
-    color: var(--white);
-    border-radius: 2rem;
-    padding: .5rem;
-    width: fit-content;
-    text-transform: uppercase;
-}
-
 .heroTitle {
     color: var(--white);
     font-size: clamp(2.25rem, 6vw, var(--fs-display));
