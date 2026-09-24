@@ -73,6 +73,13 @@ export function Contacto() {
                             required
                         ></textarea>
                     </div>
+                    <label className={styles.consent}>
+                        <input type="checkbox" name="consentimiento" required />
+                        <span>
+                            Autorizo el uso de mis datos para responder esta consulta según la{' '}
+                            <a href="/privacidad" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
+                        </span>
+                    </label>
                     <button type="submit" className={styles.submitBtn} disabled={cargando}>
                         {cargando ? 'Enviando...' : 'Enviar Mensaje'}
                     </button>

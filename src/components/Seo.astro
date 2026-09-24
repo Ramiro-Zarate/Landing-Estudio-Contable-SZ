@@ -5,15 +5,17 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   ogImageAlt?: string;
+  robots?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title = 'Estudio Contable SZ | Asesoría Contable, Impositiva y Laboral',
-  description = 'Estudio Contable SZ: +20 años ofreciendo servicios contables, impositivos y laborales para empresas y profesionales en Buenos Aires. Asesoramiento integral, personalizado y confiable.',
+  description = 'Estudio Contable SZ: +15 años ofreciendo servicios contables, impositivos y laborales para empresas y profesionales en Buenos Aires. Asesoramiento integral, personalizado y confiable.',
   canonical = Astro.url.href,
-  ogImage = new URL('/logo_estudio.webp', Astro.site).href,
+  ogImage = new URL('/og-image.png', Astro.site).href,
   ogImageAlt = 'Estudio Contable SZ',
+  robots = 'index, follow, max-image-preview:large',
   jsonLd,
 } = Astro.props;
 
@@ -27,7 +29,7 @@ const jsonLdArray = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 <meta name="generator" content={Astro.generator} />
 <meta name="theme-color" content="#9d1a15" />
 <meta name="color-scheme" content="light" />
-<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="robots" content={robots} />
 
 <title>{title}</title>
 <meta name="description" content={description} />

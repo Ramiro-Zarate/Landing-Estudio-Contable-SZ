@@ -9,19 +9,6 @@
     text-align: center;
 }
 
-.badgeServicios {
-    display: inline-block;
-    font-size: var(--text-xs);
-    font-weight: var(--font-weight-medium);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    padding: 4px 14px;
-    border-radius: var(--radius-pill);
-    margin-bottom: 1rem;
-}
-
 .svHeading {
     font-family: var(--font-heading);
     font-weight: var(--font-weight-heading);

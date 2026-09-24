@@ -15,9 +15,9 @@ import Footer from '../components/Footer.astro';
 	<Hero />
 	<main>
 		<About />
-		<Servicios client:visible />
-		<Consultoria client:visible />
-		<Contacto client:visible />
+		<div data-reveal><Servicios client:visible /></div>
+		<div data-reveal><Consultoria client:visible /></div>
+		<div data-reveal><Contacto client:visible /></div>
 	</main>
 	<Footer />
 </Layout>

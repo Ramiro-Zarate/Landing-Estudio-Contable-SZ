@@ -25,22 +25,20 @@ const valores = [
 ];
 
 const stats = [
-  { num: "+15", label: "Años de experiencia" },
-  { num: "+100", label: "Clientes activos" },
-  { num: "100%", label: "Atención personalizada" },
-  { num: "4", label: "Profesionales del equipo" },
+  { to: 15, prefix: "+", suffix: "", label: "Años de experiencia" },
+  { to: 100, prefix: "+", suffix: "", label: "Clientes activos" },
+  { to: 100, prefix: "", suffix: "%", label: "Atención personalizada" },
+  { to: 4, prefix: "", suffix: "", label: "Profesionales del equipo" },
 ];
 ---
 
 <section class={styles.abSection} id="sobre-nosotros">
-  <span class={styles.abBadge}>Quiénes somos</span>
-
-  <h2 class={styles.abHeading}>
+  <h2 class={styles.abHeading} data-reveal>
     Contadores que entienden<br />
     tu <em>negocio</em>, no solo tus números.
   </h2>
 
-  <p class={styles.abIntro}>
+  <p class={styles.abIntro} data-reveal style="--reveal-i:1">
     Somos un estudio contable con más de 15 años de experiencia acompañando emprendedores, profesionales y empresas, liderado por Sergio Zárate, Contador Público egresado de la Universidad Nacional de Lomas de Zamora, quien a lo largo de su profesión se ha capacitado y especializado en el sistema tributario de Agencias de Viajes y Turismo, lo que lo lleva a la actualidad a complementar su actividad profesional con el dictado de clases en Instituciones Terciarias y Universitarias en carreras de Tecnicaturas y Licenciaturas en Turismo, en materias de Contabilidad, Costos, Impuestos, Economía, Administración y Gestión en Empresas del Sector Turístico. Creemos que una buena contabilidad no es solo cumplir con las obligaciones fiscales — es la base para tomar mejores decisiones y crecer con confianza.
   </p>
 
@@ -57,9 +55,11 @@ const stats = [
   <div class={styles.abDivider} />
 
   <div class={styles.abStats}>
-    {stats.map((s) => (
-      <div class={styles.abStat}>
-        <div class={styles.abStatNum}>{s.num}</div>
+    {stats.map((s, i) => (
+      <div class={styles.abStat} data-reveal style={`--reveal-i:${i}`}>
+        <div class={styles.abStatNum} data-count data-to={s.to} data-prefix={s.prefix} data-suffix={s.suffix}>
+          {s.prefix}{s.to}{s.suffix}
+        </div>
         <div class={styles.abStatLabel}>{s.label}</div>
       </div>
     ))}

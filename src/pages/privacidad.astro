@@ -19,7 +19,7 @@ const activeSince = new Date().toLocaleDateString('es-AR', {
 <Layout
     seo={{
         title: 'Política de Privacidad | Estudio Contable SZ',
-        description: 'Conocé cómo Estudio Contable SZ protege tus datos personales. Información sobre el formulario de contacto, WhatsApp, Google Fonts, Analytics y tus derechos como titular según la Ley 25.326.',
+        description: 'Conocé cómo Estudio Contable SZ protege tus datos personales. Información sobre el formulario de contacto, WhatsApp, Analytics y tus derechos como titular según la Ley 25.326.',
         canonical: 'https://estudiocontablesz.com/privacidad',
         jsonLd: {
             '@context': 'https://schema.org',
@@ -81,12 +81,12 @@ const activeSince = new Date().toLocaleDateString('es-AR', {
                 política de privacidad.
             </p>
 
-            <h3 class={styles.h3}>c) Fuentes de Google (Google Fonts)</h3>
+            <h3 class={styles.h3}>c) Tipografías auto-alojadas</h3>
             <p>
-                Este sitio carga tipografías desde los servidores de Google
-                (<code class={styles.code}>fonts.googleapis.com</code> y <code class={styles.code}>fonts.gstatic.com</code>). Al hacerlo,
-                tu dirección IP y datos técnicos del navegador son transmitidos a Google LLC. No
-                tenemos control sobre qué información adicional recolecta Google con este fin.
+                Este sitio sirve sus tipografías desde su propio dominio
+                (<code class={styles.code}>/fonts/</code>). No se realizan solicitudes a
+                Google Fonts ni a servidores externos para cargar las fuentes, por lo que tu
+                dirección IP no se comparte con terceros con este fin.
             </p>
 
             <h3 class={styles.h3}>d) Google Analytics 4</h3>
@@ -144,7 +144,7 @@ const activeSince = new Date().toLocaleDateString('es-AR', {
                     </a>.
                 </li>
                 <li>
-                    <strong>Google LLC</strong> (Google Fonts y Google Analytics 4).
+                    <strong>Google LLC</strong> (Google Analytics 4).
                     <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">
                         Política
                     </a>.

@@ -10,6 +10,12 @@
     z-index: 100;
     box-shadow: var(--shadow-header);
     border-bottom: 1px solid rgba(0,0,0,0.04);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.header[data-scrolled="true"] {
+    background: var(--white);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
 }
 
 .headerLink {

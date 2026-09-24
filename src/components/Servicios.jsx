@@ -347,7 +347,6 @@ export function Servicios() {
   return (
     <section className={styles.serviciosSection} id="servicios">
       <div className={styles.serviciosInner}>
-        <span className={styles.badgeServicios}>Nuestros Servicios</span>
         <h2 className={styles.svHeading}>
           Todo lo que tu empresa<br />necesita, en un solo lugar
         </h2>

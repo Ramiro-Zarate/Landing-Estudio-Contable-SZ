@@ -1,0 +1,144 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import styles from './terminos.module.css';
+
+const lastUpdated = new Date().toLocaleDateString('es-AR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+});
+---
+
+<Layout
+    seo={{
+        title: 'Términos y Condiciones | Estudio Contable SZ',
+        description: 'Términos y condiciones de uso del sitio de Estudio Contable SZ. Documento preliminar pendiente de revisión legal.',
+        canonical: 'https://estudiocontablesz.com/terminos',
+        robots: 'noindex, nofollow',
+        jsonLd: {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Términos y Condiciones | Estudio Contable SZ',
+            url: 'https://estudiocontablesz.com/terminos',
+            inLanguage: 'es-AR',
+            isPartOf: {
+                '@type': 'WebSite',
+                name: 'Estudio Contable SZ',
+                url: 'https://estudiocontablesz.com',
+            },
+        },
+    }}
+>
+    <Header />
+    <main class={styles.main}>
+        <h1 class={styles.h1}>Términos y Condiciones</h1>
+        <p class={styles.updated}>Última actualización: {lastUpdated}</p>
+
+        <p class={styles.notice}>
+            Documento preliminar. Este texto es un borrador y está pendiente de revisión
+            legal. Su contenido no debe considerarse definitivo.
+        </p>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>1. Identidad del titular</h2>
+            <p>
+                Este sitio web es operado por Estudio Contable SZ, en adelante "el Estudio".
+            </p>
+            <ul class={styles.list}>
+                <li><strong>Titular:</strong> Sergio Omar Zarate</li>
+                <li><strong>CUIT:</strong> 20-29027177-1</li>
+                <li><strong>Domicilio:</strong> Burzaco, Buenos Aires, Argentina</li>
+                <li><strong>Teléfono:</strong> 11 2858-0480</li>
+                <li>
+                    <strong>Correo electrónico:</strong>
+                    <a href="mailto:administracion@estudiocontablesz.com">administracion@estudiocontablesz.com</a>
+                </li>
+            </ul>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>2. Objeto y aceptación</h2>
+            <p>
+                [Pendiente: describir el objeto de estos términos y que el uso del sitio implica
+                su aceptación por parte del usuario.]
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>3. Uso del sitio</h2>
+            <p>
+                [Pendiente: condiciones de uso permitido, prohibiciones y responsabilidad del
+                usuario sobre la información que envía.]
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>4. Servicios profesionales</h2>
+            <p>
+                [Pendiente: aclarar que la información publicada es de carácter general y no
+                constituye asesoramiento contable, impositivo o legal, el cual requiere un
+                contrato de servicios con el Estudio.]
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>5. Propiedad intelectual</h2>
+            <p>
+                [Pendiente: titularidad de marcas, contenido, textos, imágenes e isotipo, y
+                condiciones de reproducción.]
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>6. Responsabilidad</h2>
+            <p>
+                [Pendiente: limitación de responsabilidad respecto del uso del sitio y de la
+                información publicada.]
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>7. Enlaces a terceros</h2>
+            <p>
+                [Pendiente: mención de enlaces externos (WhatsApp, EmailJS, Google Analytics) y
+                aclaración de que el Estudio no controla sus contenidos ni políticas.]
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>8. Datos personales</h2>
+            <p>
+                El tratamiento de los datos personales que se recolectan a través de este sitio
+                se describe en la
+                <a href="/privacidad"> Política de Privacidad</a>.
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>9. Modificaciones</h2>
+            <p>
+                [Pendiente: el Estudio podrá modificar estos términos; indicar cómo se
+                notifican los cambios.]
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>10. Legislación aplicable y jurisdicción</h2>
+            <p>
+                [Pendiente: legislación aplicable (República Argentina) y jurisdicción
+                competente (Buenos Aires).]
+            </p>
+        </section>
+
+        <section class={styles.section}>
+            <h2 class={styles.h2}>11. Contacto</h2>
+            <p>
+                Por cualquier consulta sobre estos términos, podés escribirnos a
+                <a href="mailto:administracion@estudiocontablesz.com">administracion@estudiocontablesz.com</a>.
+            </p>
+        </section>
+    </main>
+    <Footer />
+</Layout>

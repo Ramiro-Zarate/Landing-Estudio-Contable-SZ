@@ -310,7 +310,6 @@ export function Consultoria() {
   return (
     <section className={`${styles.serviciosSection} ${styles.consultoriaSection}`} id="consultoria">
       <div className={styles.serviciosInner}>
-        <span className={styles.badgeServicios}>Consultoría</span>
         <h2 className={styles.svHeading}>
           Consultoría en Agencias de Viaje<br />y Turismo
         </h2>
