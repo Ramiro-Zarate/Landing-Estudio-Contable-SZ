@@ -74,9 +74,9 @@
 
     --warm-bg: color-mix(in srgb, var(--secondary-color) 60%, var(--bg-color));
     --grid-line: color-mix(in srgb, var(--text-color) 4%, transparent);
-    --glass-bg: color-mix(in srgb, var(--secondary-color) 42%, transparent);
-    --glass-border: color-mix(in srgb, var(--secondary-color) 78%, transparent);
-    --glass-shadow: 0 22px 44px -22px color-mix(in srgb, var(--primary-color) 22%, transparent);
+    --glass-bg: color-mix(in srgb, var(--white) 90%, transparent);
+    --glass-border: var(--border);
+    --glass-shadow: 0 24px 48px -24px color-mix(in srgb, var(--text-color) 20%, transparent);
     --glow: color-mix(in srgb, var(--primary-color) 12%, transparent);
     --track: color-mix(in srgb, var(--text-color) 10%, transparent);
 }
