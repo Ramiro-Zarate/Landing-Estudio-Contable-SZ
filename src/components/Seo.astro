@@ -5,6 +5,7 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   ogImageAlt?: string;
+  robots?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
@@ -14,6 +15,7 @@ const {
   canonical = Astro.url.href,
   ogImage = new URL('/og-image.png', Astro.site).href,
   ogImageAlt = 'Estudio Contable SZ',
+  robots = 'index, follow, max-image-preview:large',
   jsonLd,
 } = Astro.props;
 
@@ -27,7 +29,7 @@ const jsonLdArray = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 <meta name="generator" content={Astro.generator} />
 <meta name="theme-color" content="#9d1a15" />
 <meta name="color-scheme" content="light" />
-<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="robots" content={robots} />
 
 <title>{title}</title>
 <meta name="description" content={description} />
