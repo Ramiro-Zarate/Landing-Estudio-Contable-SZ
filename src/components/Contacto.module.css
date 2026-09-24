@@ -12,7 +12,11 @@
 .contactoGrid {
     display: grid;
     grid-template-columns: 1fr 300px;
-    gap: 3rem;
+    grid-template-areas:
+        "form trust"
+        "form info";
+    align-items: start;
+    gap: 2.5rem 3rem;
     text-align: left;
     margin-top: 2rem;
 }
@@ -31,10 +35,10 @@
 }
 
 .contactInfo {
+    grid-area: info;
     display: flex;
     flex-direction: column;
     padding-inline: 1rem;
-    /* justify-content: center; */
     gap: 1.5rem;
 }
 
@@ -68,7 +72,50 @@
     font-weight: var(--font-weight-medium);
 }
 
+.trustBlock {
+    grid-area: trust;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+}
+
+.trustTitle {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-heading);
+    font-size: var(--fs-18);
+    color: var(--text-color);
+    margin: 0 0 1rem;
+}
+
+.trustList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.trustList li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: var(--text-sm2);
+    line-height: 1.5;
+    color: var(--text-soft);
+}
+
+.trustIcon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--primary-color);
+}
+
 .contactoForm {
+    grid-area: form;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
@@ -87,6 +134,7 @@
 }
 
 .input,
+.select,
 .textarea {
     font-family: var(--font-body);
     font-size: var(--fs-md);
@@ -99,6 +147,7 @@
 }
 
 .input:focus,
+.select:focus,
 .textarea:focus {
     outline: none;
     border-color: var(--primary-color);
@@ -113,6 +162,28 @@
 .textarea {
     resize: vertical;
     min-height: 120px;
+}
+
+.consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.consent input {
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: var(--primary-color);
+}
+
+.consent a {
+    color: var(--primary-color);
 }
 
 .submitBtn {
@@ -145,6 +216,10 @@
 
     .contactoGrid {
         grid-template-columns: 1fr;
+        grid-template-areas:
+            "trust"
+            "form"
+            "info";
         gap: 2rem;
     }
 
@@ -168,6 +243,7 @@
 }
 
 .input,
+.select,
 .textarea {
     box-sizing: border-box;
     max-width: 100%;
@@ -191,4 +267,14 @@
   background-color: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
+}
+
+.alertaHint {
+  margin: 0.5rem 0 0;
+  font-size: var(--text-sm);
+}
+
+.alertaHint a {
+  color: inherit;
+  text-decoration: underline;
 }

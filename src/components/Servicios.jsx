@@ -16,65 +16,89 @@ import {
 const servicios = [
   {
     titulo: "Contabilidad",
+    grupo: "Contabilidad e impuestos",
     descripcion: "Brindamos reportes contables basados en el proceso de información procesada a través de nuestro sistema de Gestión Contable.",
     Icon: IconContabilidad,
     incluye: ["Contabilidad general", "Registro y control de operaciones", "Análisis de cuentas", "Libros contables", "Balances", "Estados contables", "Conciliaciones bancarias"],
   },
   {
     titulo: "Impuestos",
+    grupo: "Contabilidad e impuestos",
     descripcion: "Gestionamos la presentación y pago de todos los tributos nacionales, provinciales y municipales, con planificación fiscal estratégica para optimizar la carga tributaria dentro del marco legal.",
     Icon: IconImpuestos,
-    incluye: ["IVA", "Ganancias", "Bienes personales", "Retenciones y percepciones", "Ingresos Brutos", "Convenio Multilateral", "Tasas municipales", "Monotributo (altas / Bajas / Modificaciones / Recategorizaciones)"],
+    incluye: ["IVA", "Ganancias", "Bienes personales", "Retenciones y percepciones", "Ingresos Brutos", "Convenio Multilateral", "Tasas municipales", "Monotributo (altas / bajas / modificaciones / recategorizaciones)"],
   },
   {
     titulo: "Sueldos y jornales",
-    descripcion: "Liquidamos diversos convenios colectivos (Comercio / Turismo / Pasteleros / UOM / construcción / Lavaderos / Camioneros); te enviamos los recibos digitalizados junto con las boletas de pago correspondientes a cada Convenio Colectivo.",
+    grupo: "Sueldos y administración",
+    descripcion: "Liquidamos diversos convenios colectivos (Comercio / Turismo / Pasteleros / UOM / Construcción / Lavaderos / Camioneros); te enviamos los recibos digitalizados junto con las boletas de pago correspondientes a cada Convenio Colectivo.",
     Icon: IconSueldos,
-    incluye: ["Altas como empleador", "Gestionamos tu ART", "Altas / bajas y modificaciones de empleados", "Liquidaciones mensuales y quincenales", "Aguinaldos", "Vacaciones", "Liquidaciones Finales", "Cargas sociales", "Boletas sindicales", "Certificaciones de Trabajo", "Libros de Sueldo Digital"],
+    incluye: ["Altas como empleador", "Gestionamos tu ART", "Altas / bajas y modificaciones de empleados", "Liquidaciones mensuales y quincenales", "Aguinaldos", "Vacaciones", "Liquidaciones finales", "Cargas sociales", "Boletas sindicales", "Certificaciones de trabajo", "Libros de sueldo digital"],
   },
   {
     titulo: "Administración",
+    grupo: "Sueldos y administración",
     descripcion: "Trabajamos en conjunto con las empresas para la organización y reorganización de procesos administrativos a medida de cada una de ellas para la optimización de recursos.",
     Icon: IconFiscal,
     incluye: ["Análisis de costos", "Análisis de rentabilidad", "Organización administrativa", "Controles de procesos internos", "Recursos humanos", "Implementación de sistemas de gestión"],
   },
   {
-    titulo: "Inspecciones",
-    descripcion: "Atendemos fiscalizaciones e inspecciones de los distintos Organismos de Control y Recaudación.",
-    Icon: IconInspecciones,
-    incluye: ["ARCA", "ARBA", "AGIP", "Ministerio de Trabajo", "Sindicatos", "Municipalidades"],
-  },
-  {
     titulo: "Sociedades",
+    grupo: "Sociedades y control",
     descripcion: "Acompañamos el proceso completo de apertura de tu sociedad, desde la elección del tipo societario hasta la inscripción en los organismos correspondientes, incluyendo el asesoramiento jurídico-contable inicial.",
     Icon: IconConstitucion,
     incluye: ["Constitución de Sociedades en IGJ / DPPJ", "Inscripciones", "Modificaciones societarias", "Libros y Actas", "Trámites ante organismos", "Disolución y Liquidación"],
   },
   {
     titulo: "Auditorías y Control",
+    grupo: "Sociedades y control",
     descripcion: "Revisión independiente de tus estados financieros y registros contables, generando un dictamen profesional que brinda confianza a socios, inversores y organismos de control.",
     Icon: IconAuditoria,
     incluye: ["Auditorías contables", "Revisión de Estados Contables", "Control interno", "Análisis de documentación"],
   },
   {
     titulo: "Asociaciones Civiles",
+    grupo: "Sociedades y control",
     descripcion: "Colaboramos con Asociaciones sin fines de lucro en el desarrollo de actividades y el cumplimiento fiscal y contable específico.",
     Icon: IconAsociaciones,
     incluye: ["Constitución de asociaciones y mutuales", "Gestión fiscal", "Exenciones", "Contabilidad y balances", "Regularizaciones", "Rendiciones de cuenta"],
   },
   {
+    titulo: "Inspecciones",
+    grupo: "Trámites, inspecciones y otros",
+    descripcion: "Atendemos fiscalizaciones e inspecciones de los distintos Organismos de Control y Recaudación.",
+    Icon: IconInspecciones,
+    incluye: ["ARCA", "ARBA", "AGIP", "Ministerio de Trabajo", "Sindicatos", "Municipalidades"],
+  },
+  {
     titulo: "Trámites y Certificaciones",
+    grupo: "Trámites, inspecciones y otros",
     descripcion: "Preparamos distintos informes de acuerdo a los requerimientos de distintos organismos y entidades financieras.",
     Icon: IconTramites,
     incluye: ["Certificación de Ventas", "Certificación de Ingresos", "Certificación de Origen de Fondos", "Informes sobre Activos Fijos", "Transmisión gratuita de bienes"],
   },
   {
     titulo: "Otros servicios",
+    grupo: "Trámites, inspecciones y otros",
     descripcion: "Realizamos todos aquellos trámites para mantener en orden tus proyectos y empresas de acuerdo a las múltiples exigencias de los distintos organismos.",
     Icon: IconOtros,
     incluye: ["SIRADIG", "Moratorias", "Planes de pago", "Personal de casas particulares", "Pericias contables", "Seguros", "Registro de Marcas", "Facturación", "Registro Pyme"],
   },
 ];
+
+const grupoOrden = [
+  "Contabilidad e impuestos",
+  "Sueldos y administración",
+  "Sociedades y control",
+  "Trámites, inspecciones y otros",
+];
+
+const grupos = grupoOrden.map((titulo) => ({
+  titulo,
+  items: servicios
+    .map((servicio, index) => ({ servicio, index }))
+    .filter(({ servicio }) => servicio.grupo === titulo),
+}));
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
@@ -116,7 +140,7 @@ function ServicioCard({ servicio, onClick, onHoverStart, onHoverEnd }) {
           <p className={styles.svCardTitle}>{servicio.titulo}</p>
           <p className={styles.svCardDesc}>{servicio.descripcion}</p>
         </div>
-        
+
         <svg
           className={styles.svExpandIcon}
           viewBox="0 0 24 24"
@@ -132,6 +156,7 @@ function ServicioCard({ servicio, onClick, onHoverStart, onHoverEnd }) {
           <line x1="21" y1="3" x2="14" y2="10" />
           <line x1="3" y1="21" x2="10" y2="14" />
         </svg>
+        <span className={styles.svCardCta} aria-hidden="true">Ver detalle</span>
         <div className={styles.svAccentBar} />
         <span className="sr-only">Ver más sobre {servicio.titulo}</span>
       </button>
@@ -220,7 +245,25 @@ function ServicioModal({ servicio, originRect, onClose, closeOnLeave }) {
 
   useEffect(() => {
     const handler = (e) => {
-      if (e.key === 'Escape') handleClose();
+      if (e.key === 'Escape') {
+        handleClose();
+        return;
+      }
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusables = modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener('keydown', handler);
     return () => {
@@ -347,7 +390,6 @@ export function Servicios() {
   return (
     <section className={styles.serviciosSection} id="servicios">
       <div className={styles.serviciosInner}>
-        <span className={styles.badgeServicios}>Nuestros Servicios</span>
         <h2 className={styles.svHeading}>
           Todo lo que tu empresa<br />necesita, en un solo lugar
         </h2>
@@ -356,17 +398,22 @@ export function Servicios() {
           enfocarte en hacer crecer tu negocio.
         </p>
 
-        <div className={styles.svGrid}>
-          {servicios.map((s, i) => (
-            <ServicioCard
-              key={s.titulo}
-              servicio={s}
-              onClick={(e) => handleCardClick(i, e)}
-              onHoverStart={(e) => handleHoverStart(i, e)}
-              onHoverEnd={handleHoverEnd}
-            />
-          ))}
-        </div>
+        {grupos.map((grupo) => (
+          <div key={grupo.titulo} className={styles.svGroup}>
+            <h3 className={styles.svGroupTitle}>{grupo.titulo}</h3>
+            <div className={styles.svGrid}>
+              {grupo.items.map(({ servicio, index }) => (
+                <ServicioCard
+                  key={servicio.titulo}
+                  servicio={servicio}
+                  onClick={(e) => handleCardClick(index, e)}
+                  onHoverStart={(e) => handleHoverStart(index, e)}
+                  onHoverEnd={handleHoverEnd}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {selectedIndex !== null && (

@@ -43,3 +43,9 @@
     height: auto;
     display: block;
 }
+
+@media (max-width: 768px) {
+    .footer {
+        padding-bottom: 6rem;
+    }
+}

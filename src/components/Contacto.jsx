@@ -1,6 +1,22 @@
-import React, {useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import emailjs from '@emailjs/browser'
 import styles from './Contacto.module.css'
+
+const EMAILJS_SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID || 'service_qdpjvh2'
+const EMAILJS_TEMPLATE_ID = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID || 'template_m9c89uh'
+const EMAILJS_PUBLIC_KEY = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY || 'iUY5dKiWCT0bpxIuR'
+const WHATSAPP_NUMBER = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '5491128580480'
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola! Me gustaría hacer una consulta.')}`
+const CONTACT_EMAIL = 'administracion@estudiocontablesz.com'
+
+const opcionesServicio = [
+    'Contabilidad',
+    'Impuestos',
+    'Sueldos y jornales',
+    'Sociedades',
+    'Agencias de Viajes y Turismo',
+    'Otra consulta',
+]
 
 export function Contacto() {
     const form = useRef();
@@ -9,14 +25,15 @@ export function Contacto() {
 
     const enviarEmail = (e) => {
         e.preventDefault();
+        if (cargando) return;
         setCargando(true);
         setResultado(null);
 
         emailjs.sendForm(
-        'service_qdpjvh2',  
-        'template_m9c89uh',  
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         form.current,
-        'iUY5dKiWCT0bpxIuR'    
+        EMAILJS_PUBLIC_KEY
         )
         .then((result) => {
             setResultado({ tipo: 'exito', mensaje: '¡Mensaje enviado con éxito! Te responderemos a la brevedad.' });
@@ -24,7 +41,7 @@ export function Contacto() {
         })
         .catch((error) => {
             console.error('Error de EmailJS:', error);
-            setResultado({ tipo: 'error', mensaje: 'Hubo un problema al enviar. Por favor, intentá de nuevo.' });
+            setResultado({ tipo: 'error', mensaje: 'No pudimos enviar el mensaje. Probá de nuevo o escribinos por otro canal.' });
         })
         .finally(() => {
             setCargando(false);
@@ -39,6 +56,27 @@ export function Contacto() {
             </p>
             
             <div className={styles.contactoGrid}>
+                <div className={styles.trustBlock}>
+                    <p className={styles.trustTitle}>Respaldo profesional</p>
+                    <ul className={styles.trustList}>
+                        <li>
+                            <svg className={styles.trustIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                            Contador Público (UNLZ) al frente del estudio.
+                        </li>
+                        <li>
+                            <svg className={styles.trustIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                            Docente en carreras de Turismo, terciarias y universitarias.
+                        </li>
+                        <li>
+                            <svg className={styles.trustIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                            Más de 15 años de experiencia y 4 profesionales.
+                        </li>
+                        <li>
+                            <svg className={styles.trustIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                            Más de 100 clientes activos.
+                        </li>
+                    </ul>
+                </div>
                 <form ref={form} onSubmit={enviarEmail} className={styles.contactoForm}>
                     <div className={styles.formGroup}>
                         <label htmlFor="nombre" className={styles.label}>Nombre</label>
@@ -48,6 +86,8 @@ export function Contacto() {
                             name="nombre" 
                             className={styles.input} 
                             placeholder="Tu nombre completo"
+                            maxLength={80}
+                            autoComplete="name"
                             required 
                         />
                     </div>
@@ -59,8 +99,32 @@ export function Contacto() {
                             name="email" 
                             className={styles.input} 
                             placeholder="tu@email.com"
+                            maxLength={120}
+                            autoComplete="email"
                             required 
                         />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="telefono" className={styles.label}>Teléfono (opcional)</label>
+                        <input 
+                            type="tel" 
+                            id="telefono" 
+                            name="telefono" 
+                            className={styles.input} 
+                            placeholder="+54 9 11 ..."
+                            maxLength={30}
+                            autoComplete="tel"
+                            inputMode="tel"
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="servicio" className={styles.label}>¿Sobre qué querés consultar?</label>
+                        <select id="servicio" name="servicio" className={styles.select} defaultValue="">
+                            <option value="" disabled>Elegí una opción</option>
+                            {opcionesServicio.map((opcion) => (
+                                <option key={opcion} value={opcion}>{opcion}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className={styles.formGroup}>
                         <label htmlFor="mensaje" className={styles.label}>Mensaje</label>
@@ -70,17 +134,29 @@ export function Contacto() {
                             className={styles.textarea} 
                             placeholder="Escribí tu consulta..."
                             rows="5"
+                            maxLength={1000}
                             required
                         ></textarea>
                     </div>
+                    <label className={styles.consent}>
+                        <input type="checkbox" name="consentimiento" required />
+                        <span>Autorizo el uso de mis datos para responder esta consulta. Ver <a href="/privacidad">política de privacidad</a>.</span>
+                    </label>
                     <button type="submit" className={styles.submitBtn} disabled={cargando}>
                         {cargando ? 'Enviando...' : 'Enviar Mensaje'}
                     </button>
-                    {resultado && (
+                    <div role="status" aria-live="polite">
+                        {resultado && (
                             <div className={`${styles.alerta} ${resultado.tipo === 'exito' ? styles.alertaExito : styles.alertaError}`}>
-                            {resultado.mensaje}
+                                {resultado.mensaje}
+                                {resultado.tipo === 'error' && (
+                                    <p className={styles.alertaHint}>
+                                        También podés <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">escribirnos por WhatsApp</a> o a <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                                    </p>
+                                )}
                             </div>
                         )}
+                    </div>
                 </form>
 
                 <div className={styles.contactInfo}>
