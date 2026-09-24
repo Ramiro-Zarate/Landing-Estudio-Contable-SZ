@@ -128,9 +128,7 @@
         padding: 0 1.25rem;
     }
     .headerBtn {
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
+        display: none;
     }
     .brand {
         font-size: 1.1rem;
