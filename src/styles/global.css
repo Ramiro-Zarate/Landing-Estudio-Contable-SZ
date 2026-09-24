@@ -157,7 +157,7 @@ select,
 
   html.js [data-reveal].is-revealed {
     opacity: 1;
-    translate: 0 0;
+    translate: none;
   }
 }
 
