@@ -1,3 +1,19 @@
+@font-face {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/space-grotesk-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/inter-var.woff2') format('woff2');
+}
+
 :root{
     --font-heading: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -9,7 +25,6 @@
     --text-color: #050316;
     --primary-color: #9d1a15;
     --secondary-color: #ede7e0;
-    --hover-color: #cacaca;
 
     --primary-hover: #6b1210;
     --text-muted: #5a5a6e;
@@ -27,10 +42,11 @@
     --section-padding-y-mobile: 3rem;
     --pad-x: 1.5rem;
     --pad-x-mobile: 1rem;
+    --header-height: 4.5rem;
 
     --fs-display: 4rem;
-    --fs-2xl: 2.25rem;
-    --fs-3xl: 34px;
+    --fs-3xl: 2.25rem;
+    --fs-2xl: 2rem;
     --fs-xl: 1.5rem;
     --fs-28: 28px;
     --fs-22: 22px;
@@ -55,6 +71,14 @@
     --shadow-header: 0 4px 30px rgba(0, 0, 0, 0.06);
     --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     --shadow-whatsapp: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    --warm-bg: color-mix(in srgb, var(--secondary-color) 60%, var(--bg-color));
+    --grid-line: color-mix(in srgb, var(--text-color) 4%, transparent);
+    --glass-bg: color-mix(in srgb, var(--secondary-color) 42%, transparent);
+    --glass-border: color-mix(in srgb, var(--secondary-color) 78%, transparent);
+    --glass-shadow: 0 22px 44px -22px color-mix(in srgb, var(--primary-color) 22%, transparent);
+    --glow: color-mix(in srgb, var(--primary-color) 12%, transparent);
+    --track: color-mix(in srgb, var(--text-color) 10%, transparent);
 }
 
 *,
@@ -72,6 +96,10 @@ body {
 
 html {
     scroll-behavior: smooth;
+}
+
+section[id] {
+    scroll-margin-top: var(--header-height);
 }
 
 h1, h2, h3 {
