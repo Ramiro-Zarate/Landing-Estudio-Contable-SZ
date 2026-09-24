@@ -139,6 +139,7 @@ Reglas:
 - Todo vive bajo `@media (prefers-reduced-motion: no-preference)`; con reduced-motion el estado final queda visible sin animación.
 - Sin JS de por medio el contenido se ve igual: ninguna animación deja el contenido oculto salvo durante su reproducción.
 - **Hero**: entrada on-load con stagger (H1 → subhead → CTAs → cards), `floatY` continuo en las cards, micro-animaciones del dashboard (dibujo del arco del donut, ticks del checklist, pop de los vencimientos) y parallax suave del glow (`::before`) y del stack vía la custom property `--scroll` (listener `scroll` pasivo + `rAF`; se anula con reduced-motion).
+- **Secciones**: reveal al scroll con `IntersectionObserver` sobre `[data-reveal]` (clase `html.js` agregada inline para no ocultar contenido sin JS; `is-revealed` se agrega al entrar en viewport y se deja de observar). Stagger por `--reveal-i` (`transition-delay: calc(var(--reveal-i, 0) * 70ms)`). Count-up de los stats de About (`[data-count]` + `data-to`/`data-prefix`/`data-suffix`) vía `rAF`; reduced-motion muestra el valor final. Header con `data-scrolled` (sombra y fondo más opacos al scrollear) y entrada fade+scale del botón de WhatsApp.
 
 ## Componentes
 

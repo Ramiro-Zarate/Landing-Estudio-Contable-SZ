@@ -82,7 +82,8 @@ Ruta dev con variantes del hero para comparar. **No debe llegar a producción.**
 Decisiones: **herramienta** CSS + `IntersectionObserver` (sin GSAP por ahora; se suma solo si hace falta scrub/pinning). **Método**: por secciones, arrancando por el hero. Base: `feat/redesign-v2`.
 
 - [x] **Fase 1 — Hero**: entrada on-load con stagger (H1 → subhead → CTAs → cards), micro-animaciones del dashboard (dibujo del donut, ticks del checklist, pop de vencimientos) y parallax suave del glow/stack vía `--scroll` (listener `scroll` pasivo + `rAF`). Cards migradas a propiedades de transform independientes (`rotate` + `translate` para `floatY` + `scale`/`opacity` para la entrada) para evitar conflictos.
-- [ ] **Fase 2 — Secciones**: reveal al scroll genérico (`IntersectionObserver` + `html.js`), count-up de stats en About, reveals de Servicios/Consultoría, Contacto/Footer/WhatsApp y micro-interacción del header.
+- [x] **Fase 2 — Secciones**: reveal al scroll genérico (`IntersectionObserver` sobre `[data-reveal]` + `html.js` inline), count-up de stats en About (`rAF`), reveal section-level de Servicios/Consultoría/Contacto (wrappers en `index.astro`), Footer, entrada del WhatsApp y micro-interacción del header (`data-scrolled`).
+- [ ] **Pase de intensidad** (opcional): con el sitio completo animado, subir hero + secciones con criterio unificado (entrada por líneas, más parallax, dashboard más vivo).
 
 Tokens de motion en `global.css`: `--ease-out-soft`, `--dur-enter`, `--dur-reveal`, `--reveal-dist`. Todo bajo `prefers-reduced-motion: no-preference`.
 
@@ -181,6 +182,16 @@ Cosas detectadas en la revisión, no críticas, para hacer en otro PR:
 - [ x ] `src/layouts/Layout.astro:5-19` — los meta tags (`description`, `title`, `icon`) están hardcodeados en el layout. El componente `src/components/Seo.astro` existe pero no se usa. Migrar para evitar duplicación y ganar el `og:image`/Twitter cards. **(Parcial: el Layout ahora acepta prop `seo?` opcional y la página `/privacidad` lo usa. La home sigue pasando por el default del Layout para no tocarla en este PR.)**
 
 ## Cambios recientes (PR actual)
+
+### Animaciones — Fase 2 (secciones) HECHO (rama `feat/animations`)
+
+- `src/layouts/Layout.astro` — `<script is:inline>` agrega `html.js` en `<head>` (para ocultar reveals solo con JS) + `<script>` con `IntersectionObserver` para `[data-reveal]` y count-up de `[data-count]` (`rAF`, ease-out cúbico, 1.1s). Con `prefers-reduced-motion` o sin `IntersectionObserver` muestra todo de entrada.
+- `src/styles/global.css` — bloque `@media (prefers-reduced-motion: no-preference)`: `html.js [data-reveal]` oculto (`opacity` + `translate`) con `transition-delay: calc(var(--reveal-i, 0) * 70ms)`; `.is-revealed` lo muestra.
+- `src/components/About.astro` — `data-reveal` con `--reveal-i` en heading, intro, valores y stats; stats con `data-count`/`data-to`/`data-prefix`/`data-suffix` (fallback con el valor final).
+- `src/pages/index.astro` — Servicios/Consultoría/Contacto envueltos en `<div data-reveal>` (reveal section-level; no se toca el DOM interno de los islands).
+- `src/components/Header.astro` + `Header.module.css` — `data-scrolled` al scrollear (>8px): fondo blanco + sombra más marcada.
+- `src/components/WhatsappButton.module.css` — entrada fade + scale (`waIn`).
+- `src/components/Footer.astro` — `data-reveal`.
 
 ### Animaciones — Fase 1 (hero) HECHO (rama `feat/animations`)
 

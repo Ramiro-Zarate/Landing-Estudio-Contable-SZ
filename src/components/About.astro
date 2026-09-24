@@ -25,20 +25,20 @@ const valores = [
 ];
 
 const stats = [
-  { num: "+15", label: "Años de experiencia" },
-  { num: "+100", label: "Clientes activos" },
-  { num: "100%", label: "Atención personalizada" },
-  { num: "4", label: "Profesionales del equipo" },
+  { to: 15, prefix: "+", suffix: "", label: "Años de experiencia" },
+  { to: 100, prefix: "+", suffix: "", label: "Clientes activos" },
+  { to: 100, prefix: "", suffix: "%", label: "Atención personalizada" },
+  { to: 4, prefix: "", suffix: "", label: "Profesionales del equipo" },
 ];
 ---
 
 <section class={styles.abSection} id="sobre-nosotros">
-  <h2 class={styles.abHeading}>
+  <h2 class={styles.abHeading} data-reveal>
     Contadores que entienden<br />
     tu <em>negocio</em>, no solo tus números.
   </h2>
 
-  <div class={styles.abIntro}>
+  <div class={styles.abIntro} data-reveal style="--reveal-i:1">
     <p>
       Somos un estudio contable con más de 15 años de experiencia acompañando emprendedores, profesionales y empresas.
     </p>
@@ -51,8 +51,8 @@ const stats = [
   </div>
 
   <div class={styles.abValores}>
-    {valores.map((v) => (
-      <div class={styles.abValor}>
+    {valores.map((v, i) => (
+      <div class={styles.abValor} data-reveal style={`--reveal-i:${i}`}>
         <div class={styles.abValorIcon} set:html={v.icono} />
         <p class={styles.abValorTitle}>{v.titulo}</p>
         <p class={styles.abValorDesc}>{v.descripcion}</p>
@@ -63,9 +63,11 @@ const stats = [
   <div class={styles.abDivider} />
 
   <div class={styles.abStats}>
-    {stats.map((s) => (
-      <div class={styles.abStat}>
-        <div class={styles.abStatNum}>{s.num}</div>
+    {stats.map((s, i) => (
+      <div class={styles.abStat} data-reveal style={`--reveal-i:${i}`}>
+        <div class={styles.abStatNum} data-count data-to={s.to} data-prefix={s.prefix} data-suffix={s.suffix}>
+          {s.prefix}{s.to}{s.suffix}
+        </div>
         <div class={styles.abStatLabel}>{s.label}</div>
       </div>
     ))}
