@@ -74,6 +74,13 @@ import styles from './Header.module.css';
             onScroll();
         }
 
+        const onScrolled = () => {
+            header.dataset.scrolled = String(window.scrollY > 8);
+        };
+
+        window.addEventListener('scroll', onScrolled, { passive: true });
+        onScrolled();
+
         if (toggle && menu) {
             const setOpen = (open) => {
                 toggle.setAttribute('aria-expanded', String(open));
