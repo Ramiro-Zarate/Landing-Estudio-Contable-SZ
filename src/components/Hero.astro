@@ -1,26 +1,33 @@
 ---
 import styles from './Hero.module.css'
+import HeroDashboard from './HeroDashboard.astro'
+
+const phoneNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '5491128580480'
+const whatsappMessage = 'Hola! Me gustaría hacer una consulta.'
+const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`
 ---
 
 <section class={styles.hero} id="inicio">
-    <img
-        class={styles.heroImg}
-        src="/fondo_hero.webp"
-        alt=""
-        width="1920"
-        height="1280"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-    />
-    <div class={styles.heroContent}>
-        <span class={styles.heroBadge}>estudio contable</span>
-        <h1 class={styles.heroTitle}>
-            Soluciones contables para empresas y profesionales
-        </h1>
-        <p class={styles.heroDesc}>
-            Asesoramiento impositivo, contable y financiero para emprendedores, profesionales y empresas.
-        </p>
-        <a href="#servicios" class={styles.heroBtn}>Conocer Más</a>
+    <div class={styles.grid}>
+        <div class={styles.text}>
+            <h1 class={styles.title}>
+                Soluciones contables para empresas y profesionales
+            </h1>
+            <p class={styles.desc}>
+                Asesoramiento impositivo, contable y financiero para emprendedores, profesionales y empresas.
+            </p>
+            <div class={styles.actions}>
+                <a href="#contacto" class={styles.heroBtn}>Solicitar consulta</a>
+                <a
+                    href={whatsappUrl}
+                    class={styles.heroBtnSecondary}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Escribinos por WhatsApp
+                </a>
+            </div>
+        </div>
+        <HeroDashboard />
     </div>
 </section>

@@ -1,0 +1,88 @@
+---
+import styles from './HeroLab.module.css'
+import LogoMark from './LogoMark.astro'
+
+const { kind = 'charts' } = Astro.props
+const servicios = ['IVA', 'Sueldos', 'Ingresos Brutos', 'Balance']
+---
+
+<div class={styles.dashStack} aria-hidden="true">
+  <div class={`${styles.card} ${styles.cardList}`}>
+    <ul class={styles.list}>
+      {servicios.map((servicio) => (
+        <li class={styles.listItem}>
+          <svg class={styles.check} viewBox="0 0 16 16" aria-hidden="true">
+            <circle cx="8" cy="8" r="8" />
+            <path d="M4.6 8.2 L6.9 10.5 L11.4 5.9" />
+          </svg>
+          {servicio}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {kind === 'accounting' ? (
+    <>
+      <div class={`${styles.card} ${styles.cardDocs}`}>
+        <svg class={styles.docIcon} viewBox="0 0 48 52" aria-hidden="true">
+          <rect class={styles.docPaperBack} x="12" y="8" width="28" height="36" rx="4" />
+          <rect class={styles.docPaper} x="6" y="4" width="28" height="36" rx="4" />
+          <path class={styles.docFold} d="M26 4 V12 H34" />
+          <line class={styles.docLine} x1="11" y1="18" x2="29" y2="18" />
+          <line class={styles.docLine} x1="11" y1="24" x2="25" y2="24" />
+        </svg>
+      </div>
+      <div class={`${styles.card} ${styles.cardMain}`}>
+        <span class={styles.cardLabel}>Vencimientos</span>
+        <div class={styles.calendar}>
+          {Array.from({ length: 28 }).map((_, i) => (
+            <span
+              class={i === 5 || i === 12 || i === 19 || i === 24 ? `${styles.calDay} ${styles.calDayOn}` : styles.calDay}
+            />
+          ))}
+        </div>
+      </div>
+      <div class={`${styles.card} ${styles.cardBars}`}>
+        <span class={styles.cardLabel}>Balance</span>
+        <svg class={styles.donut} viewBox="0 0 42 42" aria-hidden="true">
+          <circle class={styles.donutTrack} cx="21" cy="21" r="15.9" />
+          <circle class={styles.donutArc} cx="21" cy="21" r="15.9" />
+        </svg>
+      </div>
+    </>
+  ) : (
+    <>
+      <div class={`${styles.card} ${styles.cardMain}`}>
+        <span class={styles.cardLabel}>Resumen contable</span>
+        <svg class={styles.lineChart} viewBox="0 0 240 96" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="dashArea" x1="0" y1="0" x2="0" y2="1">
+              <stop class={styles.stopA} offset="0%" />
+              <stop class={styles.stopB} offset="100%" />
+            </linearGradient>
+          </defs>
+          <path
+            class={styles.area}
+            d="M0 74 C 24 70, 40 48, 64 50 C 88 52, 104 30, 128 34 C 152 38, 168 16, 192 22 C 208 26, 224 18, 240 24 L240 96 L0 96 Z"
+            fill="url(#dashArea)"
+          />
+          <path
+            class={styles.line}
+            d="M0 74 C 24 70, 40 48, 64 50 C 88 52, 104 30, 128 34 C 152 38, 168 16, 192 22 C 208 26, 224 18, 240 24"
+          />
+        </svg>
+      </div>
+      <div class={`${styles.card} ${styles.cardBars}`}>
+        <svg class={styles.bars} viewBox="0 0 132 72" preserveAspectRatio="none" aria-hidden="true">
+          {[30, 46, 36, 58, 42, 64].map((h, i) => (
+            <rect x={i * 22 + 2} y={72 - h} width="12" height={h} rx="4" />
+          ))}
+        </svg>
+      </div>
+    </>
+  )}
+
+  <div class={`${styles.card} ${styles.cardCrest}`}>
+    <LogoMark />
+  </div>
+</div>

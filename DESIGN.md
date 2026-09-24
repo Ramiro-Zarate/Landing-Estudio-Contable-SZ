@@ -14,7 +14,7 @@ Sistema de diseño del sitio **Estudio Contable SZ** (landing, es_AR). Este docu
 
 ## Tipografía
 
-Cargadas vía Google Fonts en `src/layouts/Layout.astro` (preconnect + 2 `<link>`).
+**Self-hosted** en `public/fonts/` (subset latin), declaradas con `@font-face` en `src/styles/global.css` y precargadas en `src/layouts/Layout.astro`. Sin Google Fonts (CSP sin orígenes externos de fuentes).
 
 | Rol | Fuente | Pesos | Tokens |
 |---|---|---|---|
@@ -26,20 +26,19 @@ Cargadas vía Google Fonts en `src/layouts/Layout.astro` (preconnect + 2 `<link>
 | Token | Valor | Uso |
 |---|---|---|
 | `--fs-display` | 4rem / 64px | H1 hero (`.heroTitle`) |
-| `--fs-3xl` | 34px | Headings de sección (About, Servicios, Contacto) |
-| `--fs-2xl` | 36px | Números de stats (`.abStatNum`) |
+| `--fs-3xl` | 2.25rem / 36px | Headings de sección (About, Servicios, Contacto) |
+| `--fs-2xl` | 2rem / 32px | Números de stats (`.abStatNum`) y H1 de `/privacidad` |
 | `--fs-28` | 28px | Títulos de modal |
 | `--fs-22` | 22px | Título de modal en ≤640px |
-| `--fs-2xl` (priv) | 2.25rem / 36px | H1 de `/privacidad` |
 | `--fs-lg` | 1.3rem | Descripción hero |
 | `--text-base` | 15px | Intros de sección |
 | `--text-sm2` | 14px | Detalle modal, items |
 | `--text-sm` | 13px | Descripciones de cards |
-| `--text-xs` | 12px | Badges, labels de stats |
+| `--text-xs` | 12px | Labels de stats, textos auxiliares |
 | `--fs-sm` | 0.875rem | Footer, copyright, legal |
 | `--fs-xs` | 0.75rem | Labels del contacto |
 
-Line-heights: hero 1, headings 1.15, body 1.6–1.75.
+Line-heights: hero 1.05, headings 1.15, body 1.6–1.75.
 
 ## Paleta
 
@@ -54,7 +53,6 @@ Tokens en `src/styles/global.css`.
 | `--text-color` | `#050316` | Texto principal / tooltip WhatsApp |
 | `--primary-color` | `#9d1a15` | Acento rojo (CTA, iconos, bordes hover) |
 | `--secondary-color` | `#ede7e0` | Chips de iconos / hover suaves |
-| `--hover-color` | `#cacaca` | (reserva) |
 
 ### Semánticos (agregados para estandarizar mágicos)
 
@@ -69,6 +67,18 @@ Tokens en `src/styles/global.css`.
 | `--white` | `#fff` | Fondo de cards y texto sobre primario |
 | `--whatsapp` | `#25D366` | Botón flotante de WhatsApp |
 | `--focus-ring` | `rgba(157,26,21,.1)` | Anillo de foco de inputs |
+
+### Hero (dashboard glass)
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--warm-bg` | `color-mix(in srgb, var(--secondary-color) 60%, var(--bg-color))` | Fin del gradiente cálido del hero |
+| `--grid-line` | `color-mix(in srgb, var(--text-color) 4%, transparent)` | Grilla técnica del fondo del hero |
+| `--glass-bg` | `color-mix(in srgb, var(--secondary-color) 42%, transparent)` | Fondo de las cards glass |
+| `--glass-border` | `color-mix(in srgb, var(--secondary-color) 78%, transparent)` | Borde de las cards glass |
+| `--glass-shadow` | `0 22px 44px -22px color-mix(in srgb, var(--primary-color) 22%, transparent)` | Sombra de las cards glass |
+| `--glow` | `color-mix(in srgb, var(--primary-color) 12%, transparent)` | Glow radial detrás del stack |
+| `--track` | `color-mix(in srgb, var(--text-color) 10%, transparent)` | Pista del donut de balance |
 
 ### Estados
 
@@ -85,11 +95,12 @@ Tokens en `src/styles/global.css`.
 | `--section-padding-y-mobile` | 3rem | Idem en ≤768px |
 | `--pad-x` | 1.5rem | Padding lateral de secciones |
 | `--pad-x-mobile` | 1rem | Idem en ≤768px |
+| `--header-height` | 4.5rem | Alto del header sticky; alimenta `scroll-margin-top` de las secciones ancla |
 
 - Secciones centradas: `max-width: var(--container-max); margin-inline: auto;`.
 - Header: `padding-inline: max(var(--pad-x), calc((100vw - var(--container-max)) / 2))`.
-- Hero: sección a 70vh con overlay lineal `rgba(10,10,10,.82→.35)`, contenido en `--container-max`.
-- Breakpoints: 768px (header/contacto), 640px (modal/privacidad responsive).
+- Hero: fondo con gradiente cálido (`--bg-color` → `--warm-bg`), grilla técnica (`--grid-line`, desvanecida en radial) y glow rojo (`--glow`) detrás del stack; fundido inferior hacia `--bg-color`, `min-height: calc(100svh - var(--header-height))`, layout split (texto + stack de cards `HeroDashboard`), contenido en `--container-max`. En ≤768px una columna, blur degradado.
+- Breakpoints: 768px (header/contacto), 640px (modal/privacidad responsive), 420px (se oculta el nombre de marca en el header).
 
 ## Radios
 
@@ -100,7 +111,7 @@ Tokens en `src/styles/global.css`.
 | `--radius-lg` | 8px | Chips de iconos, tooltip |
 | `--radius-xl` | 12px | Cards, stats, iconos de modal |
 | `--radius-2xl` | 16px | Contenedor del modal |
-| `--radius-pill` | 999px | Badges, pills |
+| `--radius-pill` | 999px | Divider, pills |
 | `--radius-full` | 50% | Botón WhatsApp |
 
 ## Sombras
@@ -113,11 +124,11 @@ Tokens en `src/styles/global.css`.
 
 ## Componentes
 
-- **Header** (`.header`) — sticky, blanco translúcido, altura 4.5rem, nav con underline animado al hover. Menú hamburguesa fullscreen en ≤768px. CTA "Solicitar Consulta".
-- **Hero** — imagen `fondo_hero.webp` + overlay oscuro, badge pill, H1 display, CTA primario.
-- **About** — badge, H2 con `<em>` en primario, intro larga, grid de 4 valores con SVG chips, divider, grid de 4 stats.
-- **Servicios / Consultoría** — grid `auto-fit minmax(180px,1fr)` de cards clickeables (2s hover o click) que abren modal flip con detalle + "Qué incluye". Fondo alterno. Consultoría es la especialización en Agencias de Viajes y Turismo.
-- **Contacto** — grid `1fr 300px`: form (EmailJS, nombre/email/mensaje) + datos (dirección, teléfono, email).
+- **Header** (`.header`) — sticky, blanco translúcido, altura `--header-height`, nav con underline animado al hover. Menú hamburguesa fullscreen en ≤768px. CTA "Solicitar Consulta" visible también en mobile (compacta); el nombre de marca se oculta ≤420px. Las secciones ancla usan `scroll-margin-top: var(--header-height)`.
+- **Hero** — fondo con gradiente cálido (`--bg-color` → `--warm-bg`) + grilla técnica (`--grid-line`, enmascarada en radial) + glow rojo (`--glow`) y fundido inferior hacia `--bg-color` para empalmar con About. Layout **split**: texto a la izquierda (H1 + subhead + CTA primario "Solicitar consulta" → `#contacto` y secundario WhatsApp) y a la derecha el stack `HeroDashboard.astro`: cards **glass** (`--glass-*`, `backdrop-filter`) apiladas y flotando con motivos contables abstractos — **Vencimientos** (calendario de puntos), **Balance** (donut), **Documentos** (papeles apilados), checklist de servicios (IVA · Sueldos · Ingresos Brutos · Balance) y **crest** con el isotipo `LogoMark`. Sin cifras ni claims (decorativo, `aria-hidden`). Float con `prefers-reduced-motion`; en ≤768px una columna, texto centrado, se ocultan barras/docs y se degrada el blur (fondo opaco).
+- **About** — H2 con `<em>` en primario, intro larga, grid de 4 valores con SVG chips, divider, grid de 4 stats.
+- **Servicios / Consultoría** — cards clickeables (1s hover o click) que abren modal flip con detalle + "Qué incluye", con CTA visible "Ver detalle". Servicios se agrupa en 4 clusters (Contabilidad e impuestos · Sueldos y administración · Sociedades y control · Trámites, inspecciones y otros) sobre grid `auto-fit minmax(180px,1fr)`. Consultoría (5 cards, sin agrupar) es la especialización en Agencias de Viajes y Turismo. Fondo alterno.
+- **Contacto** — grid con áreas `form` / `trust` / `info`: form (EmailJS, nombre / email / teléfono opcional / tipo de servicio / mensaje + consentimiento de privacidad) + bloque de confianza "Respaldo profesional" (credenciales verificables: UNLZ, docencia, +15 años, 4 profesionales, +100 clientes) + datos (dirección, teléfono, email). Estado de envío con `role="status"`; ante error ofrece WhatsApp/correo como canal alternativo. En ≤768px el bloque de confianza pasa arriba del form.
 - **Footer** — centrado, copyright dinámico, link legal, data fiscal en texto + Data Fiscal de AFIP (imagen oficial `DATAWEB.jpg` en https, 100px de ancho).
 - **WhatsApp** — botón flotante 60px fijo abajo-derecha, tooltip al hover, `#25D366`.
 - **Privacidad** — página de lectura en `--content-max`, jerarquía h1→h2→h3 con `--font-heading`, links en primario, `code` en mono.

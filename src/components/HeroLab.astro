@@ -1,0 +1,122 @@
+---
+import styles from './HeroLab.module.css'
+import LogoMark from './LogoMark.astro'
+import HeroLabDash from './HeroLabDash.astro'
+
+const phoneNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '5491128580480'
+const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent('Hola! Me gustaría hacer una consulta.')}`
+
+const title = 'Soluciones contables para empresas y profesionales'
+const desc = 'Asesoramiento impositivo, contable y financiero para emprendedores, profesionales y empresas.'
+---
+
+<div class={styles.lab}>
+  <section class={`${styles.hero} ${styles.base}`}>
+    <span class={styles.tag}>1 · Solo glow (base)</span>
+    <div class={styles.grid}>
+      <div class={styles.text}>
+        <h1 class={styles.title}>{title}</h1>
+        <p class={styles.desc}>{desc}</p>
+        <div class={styles.actions}>
+          <a href="#contacto" class={styles.btn}>Solicitar consulta</a>
+          <a href={whatsappUrl} class={styles.btnGhost} target="_blank" rel="noopener noreferrer">Escribinos por WhatsApp</a>
+        </div>
+      </div>
+      <div class={styles.plate}>
+        <LogoMark />
+      </div>
+    </div>
+  </section>
+  <section class={`${styles.hero} ${styles.dash}`}>
+    <span class={styles.tag}>2 · Dashboard glass</span>
+    <div class={styles.grid}>
+      <div class={styles.text}>
+        <h1 class={styles.title}>{title}</h1>
+        <p class={styles.desc}>{desc}</p>
+        <div class={styles.actions}>
+          <a href="#contacto" class={styles.btn}>Solicitar consulta</a>
+          <a href={whatsappUrl} class={styles.btnGhost} target="_blank" rel="noopener noreferrer">Escribinos por WhatsApp</a>
+        </div>
+      </div>
+      <HeroLabDash kind="charts" />
+    </div>
+  </section>
+  <section class={`${styles.hero} ${styles.dash} ${styles.dashWarm}`}>
+    <span class={styles.tag}>3 · Dashboard cálido</span>
+    <div class={styles.grid}>
+      <div class={styles.text}>
+        <h1 class={styles.title}>{title}</h1>
+        <p class={styles.desc}>{desc}</p>
+        <div class={styles.actions}>
+          <a href="#contacto" class={styles.btn}>Solicitar consulta</a>
+          <a href={whatsappUrl} class={styles.btnGhost} target="_blank" rel="noopener noreferrer">Escribinos por WhatsApp</a>
+        </div>
+      </div>
+      <HeroLabDash kind="charts" />
+    </div>
+  </section>
+  <section class={`${styles.hero} ${styles.dash} ${styles.dashWarm} ${styles.dashAcc}`}>
+    <span class={styles.tag}>4 · Dashboard contable</span>
+    <div class={styles.grid}>
+      <div class={styles.text}>
+        <h1 class={styles.title}>{title}</h1>
+        <p class={styles.desc}>{desc}</p>
+        <div class={styles.actions}>
+          <a href="#contacto" class={styles.btn}>Solicitar consulta</a>
+          <a href={whatsappUrl} class={styles.btnGhost} target="_blank" rel="noopener noreferrer">Escribinos por WhatsApp</a>
+        </div>
+      </div>
+      <HeroLabDash kind="accounting" />
+    </div>
+  </section>
+  <section class={`${styles.hero} ${styles.dash} ${styles.dashWarm} ${styles.dashHybrid}`}>
+    <span class={styles.tag}>5 · Híbrido</span>
+    <div class={styles.grid}>
+      <div class={styles.text}>
+        <h1 class={styles.title}>{title}</h1>
+        <p class={styles.desc}>{desc}</p>
+        <div class={styles.actions}>
+          <a href="#contacto" class={styles.btn}>Solicitar consulta</a>
+          <a href={whatsappUrl} class={styles.btnGhost} target="_blank" rel="noopener noreferrer">Escribinos por WhatsApp</a>
+        </div>
+      </div>
+      <div class={styles.hybridStack} aria-hidden="true">
+        <div class={styles.hybridPlate}>
+          <LogoMark />
+        </div>
+        <div class={`${styles.card} ${styles.hybridCardList}`}>
+          <ul class={styles.list}>
+            {['IVA', 'Sueldos', 'Balance'].map((servicio) => (
+              <li class={styles.listItem}>
+                <svg class={styles.check} viewBox="0 0 16 16" aria-hidden="true">
+                  <circle cx="8" cy="8" r="8" />
+                  <path d="M4.6 8.2 L6.9 10.5 L11.4 5.9" />
+                </svg>
+                {servicio}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class={`${styles.card} ${styles.hybridCardChart}`}>
+          <svg class={styles.lineChart} viewBox="0 0 240 96" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="hybridArea" x1="0" y1="0" x2="0" y2="1">
+                <stop class={styles.stopA} offset="0%" />
+                <stop class={styles.stopB} offset="100%" />
+              </linearGradient>
+            </defs>
+            <path
+              class={styles.area}
+              d="M0 74 C 24 70, 40 48, 64 50 C 88 52, 104 30, 128 34 C 152 38, 168 16, 192 22 C 208 26, 224 18, 240 24 L240 96 L0 96 Z"
+              fill="url(#hybridArea)"
+            />
+            <path
+              class={styles.line}
+              d="M0 74 C 24 70, 40 48, 64 50 C 88 52, 104 30, 128 34 C 152 38, 168 16, 192 22 C 208 26, 224 18, 240 24"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
