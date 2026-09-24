@@ -122,6 +122,24 @@ Tokens en `src/styles/global.css`.
 | `--shadow-modal` | `0 25px 50px -12px rgba(0,0,0,.25)` | Modal de servicios |
 | `--shadow-whatsapp` | `0 4px 12px rgba(0,0,0,.25)` | Botón flotante |
 
+## Motion
+
+Tokens en `global.css`:
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--ease-out-soft` | `cubic-bezier(0.16, 1, 0.3, 1)` | Easing de entradas y reveals |
+| `--dur-enter` | `0.7s` | Duración de entrada del hero |
+| `--dur-reveal` | `0.6s` | Duración de reveals al scroll (Fase 2) |
+| `--reveal-dist` | `24px` | Desplazamiento inicial de los reveals (Fase 2) |
+
+Reglas:
+
+- Animar solo `opacity` y propiedades de transform **independientes** (`translate`, `scale`, `rotate`) para mantener el trabajo en el compositor y evitar conflictos con `floatY`.
+- Todo vive bajo `@media (prefers-reduced-motion: no-preference)`; con reduced-motion el estado final queda visible sin animación.
+- Sin JS de por medio el contenido se ve igual: ninguna animación deja el contenido oculto salvo durante su reproducción.
+- **Hero**: entrada on-load con stagger (H1 → subhead → CTAs → cards), `floatY` continuo en las cards, micro-animaciones del dashboard (dibujo del arco del donut, ticks del checklist, pop de los vencimientos) y parallax suave del glow (`::before`) y del stack vía la custom property `--scroll` (listener `scroll` pasivo + `rAF`; se anula con reduced-motion).
+
 ## Componentes
 
 - **Header** (`.header`) — sticky, blanco translúcido, altura `--header-height`, nav con underline animado al hover. Menú hamburguesa fullscreen en ≤768px. CTA "Solicitar Consulta" visible también en mobile (compacta); el nombre de marca se oculta ≤420px. Las secciones ancla usan `scroll-margin-top: var(--header-height)`.

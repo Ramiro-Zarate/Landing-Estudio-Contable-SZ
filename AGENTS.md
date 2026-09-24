@@ -19,6 +19,8 @@ npm run build    # build estático
 npm run preview  # preview del build
 ```
 
+> **No correr `npm run build`/`preview` con `astro dev` levantado.** `astro.config.mjs` separa el `cacheDir` de Vite por comando (`node_modules/.vite/dev` para dev, `node_modules/.vite/build` para build) para que no compartan `deps`. Sin esto, un build re-optimiza `node_modules/.vite/deps` y rompe la hidratación de los islands React en el dev server en curso (Servicios/Consultoría se ven vacíos). Si ya pasó: frenar dev, `Remove-Item -Recurse -Force node_modules\.vite`, `npm run dev` y hard refresh.
+
 Variables de entorno actuales (ver `.env.example`):
 
 - `PUBLIC_EMAILJS_SERVICE_ID`
@@ -31,7 +33,63 @@ Variables de entorno actuales (ver `.env.example`):
 
 > **Diseño**: `DESIGN.md` en la raíz es la fuente de verdad del sistema visual; los tokens viven en `src/styles/global.css` (`:root`) y los componentes los consumen vía CSS modules. No reintroducir valores mágicos (colores, anchos de 1100px, radios, sombras) fuera de los tokens.
 
+## Flujo Git
+
+- **`main` = producción** (Vercel Production Branch). Está **protegida**: no se pushea directo, todo entra por PR.
+- Ramas: `feat/…`, `fix/…`, `chore/…`.
+- Commits: `<type>: <description>` en inglés, lowercase, sin punto final.
+- Cada rama/PR genera una **Preview Deployment** de Vercel con su propia URL (no toca producción).
+- **Merge a `main` solo con aprobación del cliente.**
+
+Flujo típico:
+
+```bash
+git switch -c feat/<tema>
+git add <archivos>
+git commit -m "feat: ..."
+git push -u origin feat/<tema>
+# abrir PR en GitHub → Vercel comenta la preview → revisar → merge
+```
+
+> **Antes de mergear a `main`: sacar el lab** (`/hero-lab`, `HeroLab*`) — ver sección siguiente.
+
+### Rama actual: `feat/redesign-v2` (pendiente de aprobación del cliente)
+
+Base: `main` @ `c93b9d4`. `main`/producción intactos. Commits:
+
+- `60afdc2` `chore: self-host fonts + design tokens + seo meta`
+- `f476e14` `feat: hero dashboard redesign`
+- `27d0423` `feat: update content sections`
+- `0b3c848` `docs: add PRODUCT.md and ignore .impeccable`
+- `20a68f1` `fix: strengthen hero glass card background`
+
+Incluye el lab (a remover antes del merge).
+
+## Lab de hero — `/hero-lab` (temporal)
+
+Ruta dev con variantes del hero para comparar. **No debe llegar a producción.**
+
+- `src/pages/hero-lab.astro` — página standalone (`noindex`, sin header/footer/WhatsApp).
+- `src/components/HeroLab.astro`, `HeroLab.module.css`, `HeroLabDash.astro`.
+- Variantes actuales: 1 Solo glow (base), 2 Dashboard glass, 3 Dashboard cálido, 4 Dashboard contable, 5 Híbrido.
+
+> **Antes de mergear la rama a `main`:** eliminar la ruta `/hero-lab` y los componentes `HeroLab*` (o dejarlos solo en local, nunca en producción).
+
 ## ⚠️ Pendientes prioritarios
+
+### Fase 3 — Animaciones (rama `feat/animations`, en progreso)
+
+Decisiones: **herramienta** CSS + `IntersectionObserver` (sin GSAP por ahora; se suma solo si hace falta scrub/pinning). **Método**: por secciones, arrancando por el hero. Base: `feat/redesign-v2`.
+
+- [x] **Fase 1 — Hero**: entrada on-load con stagger (H1 → subhead → CTAs → cards), micro-animaciones del dashboard (dibujo del donut, ticks del checklist, pop de vencimientos) y parallax suave del glow/stack vía `--scroll` (listener `scroll` pasivo + `rAF`). Cards migradas a propiedades de transform independientes (`rotate` + `translate` para `floatY` + `scale`/`opacity` para la entrada) para evitar conflictos.
+- [ ] **Fase 2 — Secciones**: reveal al scroll genérico (`IntersectionObserver` + `html.js`), count-up de stats en About, reveals de Servicios/Consultoría, Contacto/Footer/WhatsApp y micro-interacción del header.
+
+Tokens de motion en `global.css`: `--ease-out-soft`, `--dur-enter`, `--dur-reveal`, `--reveal-dist`. Todo bajo `prefers-reduced-motion: no-preference`.
+
+### Housekeeping del repo (menor)
+
+- Agregar plantilla de PR (`.github/pull_request_template.md`) con checklist: no mergear sin aprobación del cliente; sacar el lab antes de mergear.
+- Archivos sueltos que conviene ignorar/limpiar: `preview.err.log`, `preview.log`, `skills-lock.json`.
 
 ### QR fiscal del footer — **HECHO** (2026-09-17)
 
@@ -123,6 +181,32 @@ Cosas detectadas en la revisión, no críticas, para hacer en otro PR:
 - [ x ] `src/layouts/Layout.astro:5-19` — los meta tags (`description`, `title`, `icon`) están hardcodeados en el layout. El componente `src/components/Seo.astro` existe pero no se usa. Migrar para evitar duplicación y ganar el `og:image`/Twitter cards. **(Parcial: el Layout ahora acepta prop `seo?` opcional y la página `/privacidad` lo usa. La home sigue pasando por el default del Layout para no tocarla en este PR.)**
 
 ## Cambios recientes (PR actual)
+
+### Animaciones — Fase 1 (hero) HECHO (rama `feat/animations`)
+
+Base `feat/redesign-v2`. Motor: **CSS + un listener `rAF`** para el parallax (sin dependencias).
+
+- `src/styles/global.css` — tokens de motion: `--ease-out-soft`, `--dur-enter`, `--dur-reveal`, `--reveal-dist`.
+- `src/components/Hero.module.css` — keyframes `heroRise` (texto), `cardIn` (cards), `checkDraw` (ticks), `donutDraw` (arco), `dotPop` (vencimientos); `floatY` migrado de `transform` a la propiedad `translate`. Cards pasadas a propiedades independientes: `rotate: var(--rot)`, `translate` para el float, `scale`/`opacity` para la entrada. Parallax vía `--scroll` en `.hero::before` y `.dashStack`.
+- `src/components/HeroDashboard.astro` — `pathLength="1"` en el tick del checklist (normaliza el `stroke-dashoffset`).
+- `src/components/Hero.astro` — `<script>` con listener `scroll`/`resize` pasivo + `rAF` que setea `--scroll` (clamp a `innerHeight`); se anula con `prefers-reduced-motion`.
+- `DESIGN.md` — sección **Motion**.
+- Todo bajo `prefers-reduced-motion: no-preference`; sin JS el estado final es visible.
+
+### Hero dashboard — HECHO (rama `feat/redesign-v2`)
+
+Home con hero rediseñado (variante **"Dashboard glass contable"**, elegida tras comparar 5 variantes en el lab). Estructura: **split** — texto (H1 + subtítulo + CTA "Solicitar consulta" → `#contacto` + WhatsApp) a la izquierda; **stack de cards glass** a la derecha con motivos contables.
+
+- `src/components/Hero.astro` — sección `#inicio`, fondo gradiente cálido + grilla técnica + glow, altura `calc(100svh - var(--header-height))`.
+- `src/components/HeroDashboard.astro` — stack de cards (`aria-hidden`): **Vencimientos** (calendario de puntos), **Balance** (donut), **Documentos** (papeles apilados), checklist de servicios (IVA · Sueldos · Ingresos Brutos · Balance) y **crest** con el isotipo `LogoMark`. **Sin cifras ni claims** (cero fabricación).
+- `src/components/Hero.module.css` — estilos + tokens. En ≤768: blur degradado (card blanca opaca), se ocultan barras/docs, se reescala el stack.
+- `src/components/LogoMark.astro` / `.module.css` — isotipo SVG (bitono, entra con fade + settle).
+- `public/fondo_hero.webp` **eliminado** (el hero ya no usa imagen).
+- Tokens nuevos en `src/styles/global.css`: `--warm-bg`, `--grid-line`, `--glass-bg`, `--glass-border`, `--glass-shadow`, `--glow`, `--track`.
+
+**Panel glass (fix 2026-09, `20a68f1`):** el card se veía casi sin fondo en desktop. Se pasó a **blanco frosted casi opaco** (`--glass-bg: color-mix(in srgb, var(--white) 90%, transparent)`), borde `--border`, sombra neutra y blur `8px`. En ≤768 la card es blanca opaca sin blur.
+
+Decisiones de diseño: se descartó el hero anterior (imagen `fondo_hero.webp` + overlay oscuro) y las variantes dark/rojo/arena del lab. La variante elegida resuelve el P0 del critique (CTA de conversión arriba del fold) y da especificidad de rubro. `DESIGN.md` actualizado (Hero + tokens).
 
 ### Sistema de diseño + audit (2026-09-04)
 

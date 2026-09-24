@@ -31,3 +31,33 @@ const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(what
         <HeroDashboard />
     </div>
 </section>
+
+<script>
+    const hero = document.getElementById('inicio');
+
+    if (hero) {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let frame = 0;
+
+        const update = () => {
+            frame = 0;
+
+            if (reduce.matches) {
+                hero.style.removeProperty('--scroll');
+                return;
+            }
+
+            const offset = Math.min(window.scrollY, window.innerHeight);
+            hero.style.setProperty('--scroll', String(Math.round(offset)));
+        };
+
+        const schedule = () => {
+            if (!frame) frame = requestAnimationFrame(update);
+        };
+
+        window.addEventListener('scroll', schedule, { passive: true });
+        window.addEventListener('resize', schedule, { passive: true });
+        reduce.addEventListener('change', schedule);
+        update();
+    }
+</script>
